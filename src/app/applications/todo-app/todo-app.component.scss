@@ -1,0 +1,40 @@
+.todoAccueilListe {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 20px;
+  padding: 20px;
+  li {
+    height: 90px;
+    border: 0.3px transparent solid;
+    border-radius: 7px;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    position: relative;
+    cursor: pointer;
+    .AccueilListeDate{
+      position: absolute;
+      top: 15px;
+      left: 30px;
+      font-size: 8px;
+      color: rgb(126, 126, 126);
+    }
+    img{
+      position: absolute;
+      right: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.addModale {
+  .containerModale {
+    .radioTodoType{
+      label{
+        margin-left: 10px;
+      }
+    }
+  }
+}

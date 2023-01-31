@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="header d-flex center">
+    <div routerLink="" class="menu">menu</div>
+    <p class="titleApp p-t20">{{todoNote?.title}}</p>
+    <svg (click)="addTodo()" class="addTodo" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_27_2)">
+      <path d="M8.46903 1.07252L8.46903 6.53139L13.8996 6.53139C14.0234 6.52752 14.1468 6.54871 14.2622 6.59366C14.3776 6.63862 14.4828 6.70643 14.5714 6.79302C14.7589 6.98055 14.8643 7.23491 14.8643 7.50012C14.8643 7.76534 14.7589 8.01969 14.5714 8.20723C14.4863 8.29557 14.3841 8.3656 14.271 8.41302C14.158 8.46044 14.0364 8.48426 13.9138 8.483L8.44782 8.44764L8.44782 13.9489C8.45035 14.1795 8.36429 14.4022 8.20741 14.5712C8.01987 14.7587 7.76551 14.8641 7.5003 14.8641C7.23508 14.8641 6.98073 14.7587 6.79319 14.5712C6.69934 14.4848 6.62447 14.3799 6.57334 14.263C6.52221 14.1461 6.49595 14.0199 6.49621 13.8924L6.53156 8.46886L1.08684 8.46886C0.965382 8.47082 0.844739 8.44871 0.73187 8.40381C0.619002 8.3589 0.516143 8.29209 0.42923 8.20723C0.241694 8.01969 0.136337 7.76534 0.136337 7.50012C0.136337 7.23491 0.241694 6.98055 0.42923 6.79302C0.514275 6.70467 0.616474 6.63464 0.729557 6.58722C0.842641 6.5398 0.964222 6.51599 1.08684 6.51724L6.55277 6.5526L6.55278 1.05131C6.55025 0.820752 6.6363 0.598018 6.79319 0.429054C6.98073 0.241518 7.23508 0.136161 7.5003 0.136161C7.76551 0.136161 8.01987 0.241518 8.2074 0.429054C8.37499 0.600881 8.46903 0.832105 8.46903 1.07252Z" fill="white"/>
+      </g>
+      <defs>
+      <clipPath id="clip0_27_2">
+      <rect width="15" height="15" fill="white"/>
+      </clipPath>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="addModale" *ngIf="modalaleAddTodo">
+    <div class="containerModaleTodo">
+      <svg (click)="closeAddTodoModale()" class="closeModale" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.64001 2.27L7.50001 6.13L11.34 2.29C11.4248 2.19972 11.527 2.12749 11.6404 2.07766C11.7538 2.02783 11.8761 2.00141 12 2C12.2652 2 12.5196 2.10536 12.7071 2.29289C12.8947 2.48043 13 2.73478 13 3C13.0023 3.1226 12.9796 3.24439 12.9332 3.35788C12.8867 3.47138 12.8176 3.57419 12.73 3.66L8.84001 7.5L12.73 11.39C12.8948 11.5512 12.9915 11.7696 13 12C13 12.2652 12.8947 12.5196 12.7071 12.7071C12.5196 12.8946 12.2652 13 12 13C11.8726 13.0053 11.7454 12.984 11.6266 12.9375C11.5078 12.8911 11.4 12.8204 11.31 12.73L7.50001 8.87L3.65001 12.72C3.56552 12.8073 3.46457 12.8769 3.35301 12.925C3.24145 12.9731 3.12147 12.9986 3.00001 13C2.73479 13 2.48044 12.8946 2.2929 12.7071C2.10537 12.5196 2.00001 12.2652 2.00001 12C1.99768 11.8774 2.02043 11.7556 2.06686 11.6421C2.11328 11.5286 2.18242 11.4258 2.27001 11.34L6.16001 7.5L2.27001 3.61C2.1052 3.44876 2.00855 3.23041 2.00001 3C2.00001 2.73478 2.10537 2.48043 2.2929 2.29289C2.48044 2.10536 2.73479 2 3.00001 2C3.24001 2.003 3.47001 2.1 3.64001 2.27Z" fill="#6f6f6f"/>
+      </svg>
+      <input #inputNameTodo class="inputNameTodo" placeholder="New todo" type="text">
+      <div class="modalBottom">
+        <select #selectPriorityTodo name="priority" id="">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="height">Height</option>
+        </select>
+        <button (click)="saveTodo(inputNameTodo, selectPriorityTodo)" class="btnSubmitNewTodo">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <table *ngIf="todoNote?.content?.length != 0; else elseBlock " class="todoTable">
+    <thead>
+      <tr>
+        <th>Statu</th>
+        <th>Title</th>
+        <th>Priority</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr (click)="toggleCheckBox(toggleCheckBoxElement, index)" *ngFor="let todo of todoNote?.content; let index = index">
+        <td >
+          <div #toggleCheckBoxElement class="checkBox {{ClassListCheckbox![index]}}"></div>
+        </td>
+        <td>{{todo.title}}</td>
+        <td>
+          <div class="priority {{todo.priority}}"></div>
+        </td>
+        <td>{{todo.date}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #elseBlock>Pas encor de todo</ng-template>
+</div>

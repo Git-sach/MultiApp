@@ -1,0 +1,15 @@
+.mainMenu {
+  display: flex;
+  gap: 0px;
+  flex-wrap: wrap;
+  //justify-content: space-between;
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    svg{
+      height: 80px;
+    }
+  }
+}
