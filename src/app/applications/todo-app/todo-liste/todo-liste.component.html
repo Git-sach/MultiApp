@@ -41,7 +41,9 @@
       </tr>
     </thead>
     <tbody >
-      <tr (click)="toggleCheckBox(toggleCheckBoxElement, index)" *ngFor="let todo of todoNote?.content; let index = index">
+      <tr (contextmenu)="openRightClickTools($event, index)"
+      (click)="toggleCheckBox(toggleCheckBoxElement, index)"
+      *ngFor="let todo of todoNote?.content; let index = index">
         <td >
           <div #toggleCheckBoxElement class="checkBox {{ClassListCheckbox![index]}}"></div>
         </td>
@@ -54,4 +56,12 @@
     </tbody>
   </table>
   <ng-template #elseBlock>Pas encor de todo</ng-template>
+
+  <app-right-click-tools
+  (eventOnClickTool)="doRightClickToolsAction($event)"
+  [X_positionRightClickTools]="X_positionRightClickTools"
+  [Y_positionRightClickTools]="Y_positionRightClickTools"
+  [configRightClickTools]="configRightClickTools"
+  *ngIf="rightClickToolsIsOpen">
+  </app-right-click-tools>
 </div>

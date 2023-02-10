@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TodoNoteListe } from 'src/app/shared/interfaces/todo-note.interface';
+import { Tool } from 'src/app/shared/interfaces/tool.interface';
 import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
 
 @Component({
@@ -11,10 +12,19 @@ export class TodoAppComponent {
 
   public todoNoteListe: TodoNoteListe[] = this.todoNoteServicie.todoNotes;
   public modalaleAddNote: boolean = false;
-  public rightClickToolsIsOpen: boolean = false;
 
+  public rightClickToolsIsOpen: boolean = false;
   public X_positionRightClickTools: number = 0;
   public Y_positionRightClickTools: number = 0;
+  public configRightClickTools: Array<Tool> = [
+    {event: 'addBefor', img:'assets/images/todo-app/rightClickTools/addBefor.png', content:'Ajouter en haut'},
+    {event: 'addAfter', img:'assets/images/todo-app/rightClickTools/addAfter.png', content:'Ajouter en bas'},
+    {event: 'update', img:'assets/images/todo-app/rightClickTools/update.png', content:'Modifier'},
+    {event: 'delete', img:'assets/images/todo-app/rightClickTools/delete.png', content:'Suprimer'},
+    {event: 'up', img:'assets/images/todo-app/rightClickTools/up.png', content:'Monter'},
+    {event: 'down', img:'assets/images/todo-app/rightClickTools/down.png', content:'Descendre'},
+    {event: 'pin', img:'assets/images/todo-app/rightClickTools/pin.png', content:'Epingler'}
+  ];
   private indexOfLiRightClicTool: number = -1;
   private addBefor: boolean = false;
 

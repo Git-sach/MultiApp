@@ -43,10 +43,10 @@
   </div>
 
   <app-right-click-tools
-    (eventAddTop)="doRightClickToolsAction($event)"
+    (eventOnClickTool)="doRightClickToolsAction($event)"
     [X_positionRightClickTools]="X_positionRightClickTools"
     [Y_positionRightClickTools]="Y_positionRightClickTools"
+    [configRightClickTools]="configRightClickTools"
     *ngIf="rightClickToolsIsOpen">
   </app-right-click-tools>
-
 </div>
