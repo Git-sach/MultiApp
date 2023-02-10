@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { TodoNoteListe } from 'src/app/shared/interfaces/todo-note.interface';
+import { TodoNote } from 'src/app/shared/interfaces/todo-note.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoNoteService {
 
-  public todoNotes: TodoNoteListe[] = [
+  public todoNotes: TodoNote[] = [
     {
       title: 'Premiere TODO',
       date: '10/03/2022',
@@ -48,4 +48,10 @@ export class TodoNoteService {
   ]
 
   constructor() { }
+
+  public addTodoNote(todoNote: TodoNote, index: number = 0 ): void{
+    this.todoNotes.splice(index, 0, todoNote)
+  }
+
+  // public deleteTodoNote(index)
 }

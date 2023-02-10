@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TodoNoteListe } from 'src/app/shared/interfaces/todo-note.interface';
+import { TodoNote } from 'src/app/shared/interfaces/todo-note.interface';
 import { Tool } from 'src/app/shared/interfaces/tool.interface';
 import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
 
@@ -10,7 +10,7 @@ import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
 })
 export class TodoAppComponent {
 
-  public todoNoteListe: TodoNoteListe[] = this.todoNoteServicie.todoNotes;
+  public todoNoteListe: TodoNote[] = this.todoNoteServicie.todoNotes;
   public modalaleAddNote: boolean = false;
 
   public rightClickToolsIsOpen: boolean = false;
@@ -25,13 +25,17 @@ export class TodoAppComponent {
     {event: 'down', img:'assets/images/todo-app/rightClickTools/down.png', content:'Descendre'},
     {event: 'pin', img:'assets/images/todo-app/rightClickTools/pin.png', content:'Epingler'}
   ];
-  private indexOfLiRightClicTool: number = -1;
-  private addBefor: boolean = false;
+
+  private indexOfLiRightClicTool: number = 0;
+  private indexToAddTodoNote: number = 0;
 
   constructor(private todoNoteServicie: TodoNoteService){
   };
 
-  public addNoteListe(): void {
+  public addNoteListe(addByMenu: boolean = false): void {
+    if(addByMenu && this.indexToAddTodoNote != 0){
+      this.indexToAddTodoNote = 0;
+    }
     this.modalaleAddNote = true;
   }
 
@@ -40,31 +44,14 @@ export class TodoAppComponent {
   }
 
   public validateAddNoteModale(inputNameTodo: HTMLInputElement):void {
-    if(this.indexOfLiRightClicTool === -1){
-      this.todoNoteServicie.todoNotes.push({
-        title: inputNameTodo.value,
-        date: '10/10/2022',
-        type: 'todo',
-        content: []
-      })
-    } else {
-      if(this.addBefor === true){
-        this.todoNoteServicie.todoNotes.splice(this.indexOfLiRightClicTool, 0, {
-          title: inputNameTodo.value,
-          date: '10/10/2022',
-          type: 'todo',
-          content: []
-        })
-      } else {
-        this.todoNoteServicie.todoNotes.splice(this.indexOfLiRightClicTool+1, 0, {
-          title: inputNameTodo.value,
-          date: '10/10/2022',
-          type: 'todo',
-          content: []
-        })
-      }
-    }
-    this.indexOfLiRightClicTool = -1;
+
+    this.todoNoteServicie.addTodoNote({
+      title: inputNameTodo.value,
+      date: '10/10/2022',
+      type: 'todo',
+      content: []
+    }, this.indexToAddTodoNote);
+
     this.modalaleAddNote = false;
   }
 
@@ -107,12 +94,12 @@ export class TodoAppComponent {
 
   private AddBeforActionRightClicTools() {
     this.addNoteListe();
-    this.addBefor = true;
+    this.indexToAddTodoNote = this.indexOfLiRightClicTool;
   }
 
   private AddAfterActionRightClicTools() {
     this.addNoteListe();
-    this.addBefor = false;
+    this.indexToAddTodoNote = this.indexOfLiRightClicTool + 1;
   }
 
   private deleteActionRightClicTools() {

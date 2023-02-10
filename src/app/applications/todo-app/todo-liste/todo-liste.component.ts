@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { TodoNoteListe } from 'src/app/shared/interfaces/todo-note.interface';
+import { TodoNote } from 'src/app/shared/interfaces/todo-note.interface';
 import { Tool } from 'src/app/shared/interfaces/tool.interface';
 import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
 
@@ -12,7 +12,7 @@ import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
 export class TodoListeComponent implements OnInit{
 
   public todoId: string = '0';
-  public todoNote?: TodoNoteListe;
+  public todoNote?: TodoNote;
   public ClassListCheckbox: string[] = [];
   public modalaleAddTodo: boolean = false;
 
