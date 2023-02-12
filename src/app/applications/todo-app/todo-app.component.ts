@@ -68,32 +68,11 @@ export class TodoAppComponent {
     if(event.button == 2){
       this.indexOfLiRightClicTool = index;
 
-      let scrollOfScreen: number = event.view!.scrollY;
-      let heightOfScreen: number | undefined = event.view?.innerHeight;
-      let heightOfRightClicTool: number = 244;
-
-      let widthOfScreen: number | undefined = event.view?.innerWidth;
-      let widthOfRightClicTool: number = 163;
-
-      console.log({scrollOfScreen, heightOfScreen, heightOfRightClicTool, widthOfScreen, widthOfRightClicTool});
-
-
       event.preventDefault();
       this.rightClickToolsIsOpen = true;
 
-      // if(event.x + widthOfRightClicTool > widthOfScreen!){
-      //   this.X_positionRightClickTools = event.x - widthOfRightClicTool;
-      // } else {
-      // }
-
       this.X_positionRightClickTools = event.x;
-
-      // if(event.y + heightOfRightClicTool > heightOfScreen!){
-      //   this.Y_positionRightClickTools = event.y + scrollOfScreen - heightOfRightClicTool;
-      // } else {
-      // }
-
-      this.Y_positionRightClickTools = event.y + scrollOfScreen;
+      this.Y_positionRightClickTools = event.y;
     }
   }
 
