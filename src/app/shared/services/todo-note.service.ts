@@ -53,5 +53,21 @@ export class TodoNoteService {
     this.todoNotes.splice(index, 0, todoNote)
   }
 
-  // public deleteTodoNote(index)
+  public deleteTodoNote(index: number): void {
+    this.todoNotes.splice(index, 1);
+  }
+
+  public moveAboveTodoNote(index: number): void {
+    if(index > 0){
+      this.todoNotes.splice(index-1, 0, this.todoNotes[index]);
+      this.todoNotes.splice(index+1, 1);
+    }
+  }
+
+  public moveBelowTodoNote(index: number): void {
+    if(index < this.todoNotes.length){
+      this.todoNotes.splice(index+2, 0, this.todoNotes[index]);
+      this.todoNotes.splice(index, 1);
+    }
+  }
 }

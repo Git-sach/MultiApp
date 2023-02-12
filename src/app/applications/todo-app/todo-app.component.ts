@@ -47,7 +47,7 @@ export class TodoAppComponent {
 
     this.todoNoteServicie.addTodoNote({
       title: inputNameTodo.value,
-      date: '10/10/2022',
+      date: new Date().toLocaleDateString(),
       type: 'todo',
       content: []
     }, this.indexToAddTodoNote);
@@ -103,20 +103,14 @@ export class TodoAppComponent {
   }
 
   private deleteActionRightClicTools() {
-    this.todoNoteServicie.todoNotes.splice(this.indexOfLiRightClicTool, 1);
+    this.todoNoteServicie.deleteTodoNote(this.indexOfLiRightClicTool);
   }
 
   private upActionRightClicTools() {
-    if(this.indexOfLiRightClicTool > 0){
-      this.todoNoteServicie.todoNotes.splice(this.indexOfLiRightClicTool-1, 0, this.todoNoteServicie.todoNotes[this.indexOfLiRightClicTool]);
-      this.todoNoteServicie.todoNotes.splice(this.indexOfLiRightClicTool+1, 1);
-    }
+    this.todoNoteServicie.moveAboveTodoNote(this.indexOfLiRightClicTool);
   }
 
   private downActionRightClicTools() {
-    if(this.indexOfLiRightClicTool < this.todoNoteServicie.todoNotes.length){
-      this.todoNoteServicie.todoNotes.splice(this.indexOfLiRightClicTool+2, 0, this.todoNoteServicie.todoNotes[this.indexOfLiRightClicTool]);
-      this.todoNoteServicie.todoNotes.splice(this.indexOfLiRightClicTool, 1);
-    }
+    this.todoNoteServicie.moveBelowTodoNote(this.indexOfLiRightClicTool);
   }
 }
