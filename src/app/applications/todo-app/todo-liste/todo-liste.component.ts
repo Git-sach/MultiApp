@@ -27,7 +27,7 @@ export class TodoListeComponent implements OnInit{
     {event: 'up', img:'assets/images/todo-app/rightClickTools/up.png', content:'Monter'},
     {event: 'down', img:'assets/images/todo-app/rightClickTools/down.png', content:'Descendre'}
   ];
-  private indexOfLiRightClicTool: number = -1;
+  private indexOfLiRightClicTool: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -78,7 +78,7 @@ export class TodoListeComponent implements OnInit{
       title: inputNameTodo.value,
       statu: false,
       priority: selectPriorityTodo.value,
-      date: '10/20/2022'
+      date: new Date().toLocaleDateString()
     })
     this.modalaleAddTodo = false;
   }
