@@ -17,7 +17,7 @@
   <ul class="todoAccueilListe">
     <li
     (contextmenu)="openRightClickTools($event, index)"
-    [routerLink]="['/todoapp', 'todo', index]"
+    [routerLink]="['/todoapp', TodoNote.type, index]"
     *ngFor="let TodoNote of todoNoteListe, let index = index">
       <p class="AccueilListeDate">{{TodoNote.date}}</p>
       <p class="AccueilListeTitle">{{TodoNote.title}}</p>

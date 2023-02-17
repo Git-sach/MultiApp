@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { TodoNote } from 'src/app/shared/interfaces/todo-note.interface';
+import { Todo } from 'src/app/shared/interfaces/todo.interface';
 import { Tool } from 'src/app/shared/interfaces/tool.interface';
 import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
 
@@ -11,8 +12,8 @@ import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
 })
 export class TodoListeComponent implements OnInit{
 
-  public todoId: string = '0';
-  public todoNote?: TodoNote;
+  public todoNote: TodoNote | undefined;
+  public todos: Todo[] | undefined;
   public ClassListCheckbox: string[] = [];
   public modalaleAddTodo: boolean = false;
 
@@ -36,12 +37,13 @@ export class TodoListeComponent implements OnInit{
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      this.todoId = paramMap.get('id')!;
-      this.todoNote = this.todoNoteService.todoNotes[parseInt(this.todoId)];
+      let todoId = paramMap.get('id')!;
+      this.todoNote = this.todoNoteService.todoNotes[+todoId];
+      this.todos = this.todoNote.content as Todo[];
     });
 
     // Initialisationd des classes
-    this.todoNote?.content.map(x => {
+    this.todos?.map(x => {
       //checkBox
       if(x.statu == true){
         this.ClassListCheckbox?.push('checkBoxDone')
@@ -49,19 +51,18 @@ export class TodoListeComponent implements OnInit{
         this.ClassListCheckbox?.push('')
       }
     })
-
   }
 
   public toggleCheckBox(toggleCheckBoxElement: HTMLDivElement, index: number): void {
 
-    let statu = this.todoNote?.content[index].statu;
+    let statu = this.todos![index].statu;
 
     if(statu){
       toggleCheckBoxElement.classList.remove('checkBoxDone');
-      this.todoNote!.content[index].statu = false;
+      this.todos![index].statu = false;
     } else {
       toggleCheckBoxElement.classList.add('checkBoxDone');
-      this.todoNote!.content[index].statu = true;
+      this.todos![index].statu = true;
     }
   }
 
@@ -74,7 +75,7 @@ export class TodoListeComponent implements OnInit{
   }
 
   public saveTodo(inputNameTodo: HTMLInputElement, selectPriorityTodo: HTMLSelectElement): void {
-    this.todoNoteService.todoNotes[parseInt(this.todoId)].content.push({
+    this.todos!.push({
       title: inputNameTodo.value,
       statu: false,
       priority: selectPriorityTodo.value,

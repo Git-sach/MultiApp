@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <table *ngIf="todoNote?.content?.length != 0; else elseBlock " class="todoTable">
+  <table *ngIf="todos!.length != 0; else elseBlock " class="todoTable">
     <thead>
       <tr>
         <th>Statu</th>
@@ -43,7 +43,7 @@
     <tbody >
       <tr (contextmenu)="openRightClickTools($event, index)"
       (click)="toggleCheckBox(toggleCheckBoxElement, index)"
-      *ngFor="let todo of todoNote?.content; let index = index">
+      *ngFor="let todo of todos; let index = index">
         <td >
           <div #toggleCheckBoxElement class="checkBox {{ClassListCheckbox![index]}}"></div>
         </td>
