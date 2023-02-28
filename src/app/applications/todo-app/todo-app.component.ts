@@ -32,7 +32,8 @@ export class TodoAppComponent {
   constructor(private todoNoteServicie: TodoNoteService){
   };
 
-  public addNoteListe(addByMenu: boolean = false): void {
+  public addNoteListe(addByMenu: boolean = false, e?: Event): void {
+    e?.stopPropagation();
     if(addByMenu && this.indexToAddTodoNote != 0){
       this.indexToAddTodoNote = 0;
     }
