@@ -1,0 +1,10 @@
+<form (ngSubmit)="sublite()" [formGroup]="TodoNoteForm">
+  <label for="newTodoListe">Créer une todoliste
+    <input formControlName="elementType" type="radio" value="todo">
+  </label>
+  <label for="newNote">Créer une note
+    <input formControlName="elementType" type="radio" value="note">
+  </label>
+  <input formControlName="newElement" type="text" placeholder="Nouvel element">
+  <button>Valider</button>
+</form>

@@ -18,6 +18,10 @@ ul {
   list-style: none;
 }
 
+.page {
+  width: 100%;
+}
+
 .container {
   max-width: 1000px;
   display: block;
@@ -73,14 +77,6 @@ ul {
       right: 5px;
       height: 20px;
       cursor: pointer;
-    }
-    .inputNameTodoNote {
-      border: 0.5px rgba(0, 0, 0, 0.217) solid;
-      margin: 10px 0px;
-      width: 100%;
-      height: 60%;
-      padding: 10px;
-      border-radius: 4px;
     }
   }
 }

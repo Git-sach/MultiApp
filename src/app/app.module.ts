@@ -8,6 +8,8 @@ import { MenuAppsComponent } from './menu-apps/menu-apps.component';
 import { TodoListeComponent } from './applications/todo-app/todo-liste/todo-liste.component';
 import { RightClickToolsComponent } from './applications/todo-app/right-click-tools/right-click-tools.component';
 import { NoteComponent } from './applications/todo-app/note/note.component';
+import { FormTodoNoteComponent } from './applications/todo-app/form-todo-note/form-todo-note.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const APP_ROUTES: Route[] = [
   {path:'', component: MenuAppsComponent},
@@ -23,11 +25,13 @@ const APP_ROUTES: Route[] = [
     MenuAppsComponent,
     TodoListeComponent,
     RightClickToolsComponent,
-    NoteComponent
+    NoteComponent,
+    FormTodoNoteComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(APP_ROUTES)
+    RouterModule.forRoot(APP_ROUTES),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
