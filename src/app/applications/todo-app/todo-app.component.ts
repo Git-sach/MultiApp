@@ -26,15 +26,15 @@ export class TodoAppComponent {
     {event: 'pin', img:'assets/images/todo-app/rightClickTools/pin.png', content:'Epingler'}
   ];
 
+  public indexToAddTodoNote: number = 0;
   private indexOfLiRightClicTool: number = 0;
-  private indexToAddTodoNote: number = 0;
 
   constructor(private todoNoteServicie: TodoNoteService){
   };
 
   public addNoteListe(addByMenu: boolean = false, e?: Event): void {
     e?.stopPropagation();
-    if(addByMenu && this.indexToAddTodoNote != 0){
+    if(addByMenu){
       this.indexToAddTodoNote = 0;
     }
     this.modalaleAddNote = true;
@@ -42,6 +42,7 @@ export class TodoAppComponent {
 
   public closeAddNoteModale(): void {
     this.modalaleAddNote = false;
+
   }
 
   public validateAddNoteModale(inputNameTodo: HTMLInputElement):void {
@@ -93,6 +94,7 @@ export class TodoAppComponent {
       break;
     }
     this.rightClickToolsIsOpen = false;
+
   }
 
   private AddBeforActionRightClicTools() {
