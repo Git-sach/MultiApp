@@ -79,7 +79,7 @@ export class TodoListeComponent implements OnInit{
       title: inputNameTodo.value,
       statu: false,
       priority: selectPriorityTodo.value,
-      date: '10/20/2022'
+      date: new Date().toLocaleDateString()
     })
     this.modalaleAddTodo = false;
   }

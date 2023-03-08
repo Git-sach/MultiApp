@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
 
@@ -8,12 +8,13 @@ import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
   styleUrls: ['./form-todo-note.component.scss']
 })
 export class FormTodoNoteComponent {
+  @Input() public indexToAddTodoNote = 0;
 
   @Output() public eventCloseModale: EventEmitter<string> = new EventEmitter();
 
   public TodoNoteForm: FormGroup = new FormGroup({
     elementType: new FormControl('todo'),
-    newElement: new FormControl('')
+    elementTitle: new FormControl('')
   });
 
   constructor(private todoNoteServicie: TodoNoteService){
@@ -21,11 +22,11 @@ export class FormTodoNoteComponent {
 
   public sublite(): void {
     this.todoNoteServicie.addTodoNote({
-      title: this.TodoNoteForm.get('newElement')?.value,
+      title: this.TodoNoteForm.get('elementTitle')?.value,
       date: new Date().toLocaleDateString(),
       type: this.TodoNoteForm.get('elementType')?.value,
       content: []
-    });
+    }, this.indexToAddTodoNote);
     this.eventCloseModale.emit('closeModale')
   }
 }
