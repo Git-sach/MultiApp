@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { TodoNote } from 'src/app/shared/interfaces/todo-note.interface';
-import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
+import { TodoNote } from 'src/app/applications/todo-app/shared/interfaces/todo-note.interface';
+import { TodoNoteService } from 'src/app/applications/todo-app/shared/services/todo-note.service';
 
 @Component({
   selector: 'app-note',

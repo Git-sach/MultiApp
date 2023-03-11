@@ -1,4 +1,4 @@
-<div class="page" (click)="closeAddNoteModale()">
+<div class="page" (click)="closeAddNoteModale(); closeRightClickTools()">
   <div class="container">
     <div class="header d-flex center">
       <div routerLink="" class="menu">menu</div>
@@ -27,8 +27,6 @@
   </div>
 </div>
 
-
-
 <app-right-click-tools
 (eventOnClickTool)="doRightClickToolsAction($event)"
 [X_positionRightClickTools]="X_positionRightClickTools"
@@ -43,6 +41,8 @@
       <path d="M3.64001 2.27L7.50001 6.13L11.34 2.29C11.4248 2.19972 11.527 2.12749 11.6404 2.07766C11.7538 2.02783 11.8761 2.00141 12 2C12.2652 2 12.5196 2.10536 12.7071 2.29289C12.8947 2.48043 13 2.73478 13 3C13.0023 3.1226 12.9796 3.24439 12.9332 3.35788C12.8867 3.47138 12.8176 3.57419 12.73 3.66L8.84001 7.5L12.73 11.39C12.8948 11.5512 12.9915 11.7696 13 12C13 12.2652 12.8947 12.5196 12.7071 12.7071C12.5196 12.8946 12.2652 13 12 13C11.8726 13.0053 11.7454 12.984 11.6266 12.9375C11.5078 12.8911 11.4 12.8204 11.31 12.73L7.50001 8.87L3.65001 12.72C3.56552 12.8073 3.46457 12.8769 3.35301 12.925C3.24145 12.9731 3.12147 12.9986 3.00001 13C2.73479 13 2.48044 12.8946 2.2929 12.7071C2.10537 12.5196 2.00001 12.2652 2.00001 12C1.99768 11.8774 2.02043 11.7556 2.06686 11.6421C2.11328 11.5286 2.18242 11.4258 2.27001 11.34L6.16001 7.5L2.27001 3.61C2.1052 3.44876 2.00855 3.23041 2.00001 3C2.00001 2.73478 2.10537 2.48043 2.2929 2.29289C2.48044 2.10536 2.73479 2 3.00001 2C3.24001 2.003 3.47001 2.1 3.64001 2.27Z" fill="#6f6f6f"/>
     </svg>
     <app-form-todo-note
+      [updateTodoNote]= "updateTodoNote"
+      [indexOfTodoNote]="indexOfLiRightClicTool"
       [indexToAddTodoNote]="indexToAddTodoNote"
       (eventCloseModale)="closeAddNoteModale()">
     </app-form-todo-note>

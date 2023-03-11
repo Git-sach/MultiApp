@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Tool } from 'src/app/shared/interfaces/tool.interface';
+import { Tool } from 'src/app/applications/todo-app/shared/interfaces/tool.interface';
 
 @Component({
   selector: 'app-right-click-tools',

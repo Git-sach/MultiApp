@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TodoNote } from 'src/app/shared/interfaces/todo-note.interface';
+import { TodoNote } from 'src/app/applications/todo-app/shared/interfaces/todo-note.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -69,5 +69,9 @@ export class TodoNoteService {
       this.todoNotes.splice(index+2, 0, this.todoNotes[index]);
       this.todoNotes.splice(index, 1);
     }
+  }
+
+  public updateTodoNote(index: number, updatedTodoNote: TodoNote): void {
+    this.todoNotes.splice(index, 1, updatedTodoNote)
   }
 }

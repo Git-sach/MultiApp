@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { TodoNote } from 'src/app/shared/interfaces/todo-note.interface';
-import { Todo } from 'src/app/shared/interfaces/todo.interface';
-import { Tool } from 'src/app/shared/interfaces/tool.interface';
-import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
+import { TodoNote } from 'src/app/applications/todo-app/shared/interfaces/todo-note.interface';
+import { Todo } from 'src/app/applications/todo-app/shared/interfaces/todo.interface';
+import { Tool } from 'src/app/applications/todo-app/shared/interfaces/tool.interface';
+import { TodoNoteService } from 'src/app/applications/todo-app/shared/services/todo-note.service';
 
 @Component({
   selector: 'app-todo-liste',
@@ -39,7 +39,7 @@ export class TodoListeComponent implements OnInit{
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       let todoId = paramMap.get('id')!;
       this.todoNote = this.todoNoteService.todoNotes[+todoId];
-      this.todos = this.todoNote.content as Todo[];
+      this.todos = this.todoNote?.content as Todo[];
     });
 
     // Initialisationd des classes

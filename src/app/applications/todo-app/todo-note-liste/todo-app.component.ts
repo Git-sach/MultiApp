@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { TodoNote } from 'src/app/shared/interfaces/todo-note.interface';
-import { Tool } from 'src/app/shared/interfaces/tool.interface';
-import { TodoNoteService } from 'src/app/shared/services/todo-note.service';
+import { TodoNote } from 'src/app/applications/todo-app/shared/interfaces/todo-note.interface';
+import { Tool } from 'src/app/applications/todo-app/shared/interfaces/tool.interface';
+import { TodoNoteService } from 'src/app/applications/todo-app/shared/services/todo-note.service';
 
 @Component({
   selector: 'app-todo-app',
@@ -27,7 +27,8 @@ export class TodoAppComponent {
   ];
 
   public indexToAddTodoNote: number = 0;
-  private indexOfLiRightClicTool: number = 0;
+  public indexOfLiRightClicTool: number = 0;
+  public updateTodoNote: boolean = false;
 
   constructor(private todoNoteServicie: TodoNoteService){
   };
@@ -42,7 +43,7 @@ export class TodoAppComponent {
 
   public closeAddNoteModale(): void {
     this.modalaleAddNote = false;
-
+    this.updateTodoNote = false;
   }
 
   public validateAddNoteModale(inputNameTodo: HTMLInputElement):void {
@@ -78,13 +79,17 @@ export class TodoAppComponent {
     }
   }
 
+  public closeRightClickTools(){
+    this.rightClickToolsIsOpen = false;
+  }
+
   public doRightClickToolsAction(event: string){
     switch (event) {
       case 'addBefor': this.AddBeforActionRightClicTools();
       break;
       case 'addAfter': this.AddAfterActionRightClicTools();
       break;
-      case 'update': ;
+      case 'update': this.updateActionRightClicTools();
       break;
       case 'delete': this.deleteActionRightClicTools();
       break;
@@ -105,6 +110,11 @@ export class TodoAppComponent {
   private AddAfterActionRightClicTools() {
     this.addNoteListe();
     this.indexToAddTodoNote = this.indexOfLiRightClicTool + 1;
+  }
+
+  private updateActionRightClicTools() {
+    this.addNoteListe();
+    this.updateTodoNote = true;
   }
 
   private deleteActionRightClicTools() {
