@@ -32,24 +32,45 @@ ul {
   font-size: 30px;
 }
 
-.header {
-  position: relative;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.header-container{
   height: 200px;
   background-color: #437997;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: white;
-  .menu {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  .header-top {
+    width: 100%;
+    position: relative;
+    .menu {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+    }
+    .addTodo {
+      height: 30px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
   }
-  .addTodo {
-    height: 30px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
+
+  .header-bottom {
+    margin: auto;
+    input {
+      background-image: url('./assets/images/todo-app/searchIcone.png');
+      background-position: 95% 50%;
+      background-repeat: no-repeat;
+      background-size: 20px;
+      height: 35px;
+      width: 270px;
+      border-radius: 100px;
+      border: none;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+      padding-left: 15px;
+    }
   }
 }
 
