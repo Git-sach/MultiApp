@@ -1,10 +1,13 @@
-<form (ngSubmit)="sublite()" [formGroup]="TodoNoteForm">
-  <label for="newTodoListe">Créer une todoliste
-    <input formControlName="elementType" type="radio" value="todo">
-  </label>
-  <label for="newNote">Créer une note
-    <input formControlName="elementType" type="radio" value="note">
-  </label>
-  <input formControlName="elementTitle" type="text" placeholder="Nouvel element">
-  <button>Valider</button>
-</form>
+<div class="containerModaleTodoNote">
+  <form (ngSubmit)="sublite()" [formGroup]="TodoNoteForm">
+    <input class="inputNameTodoNote" formControlName="elementTitle" type="text" placeholder="Nouvel element">
+    <div class="modalBottom">
+      <select class="select" formControlName="elementType">
+        <option value="" disabled>Type</option>
+        <option value="todo">Todo</option>
+        <option value="note">Note</option>
+      </select>
+      <button class="btnSubmitNewTodoNote">Valider</button>
+    </div>
+  </form>
+</div>

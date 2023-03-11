@@ -22,6 +22,8 @@ export class FormTodoNoteComponent implements OnInit{
 
   ngOnInit(){
     this.TodoNoteForm = this.initializeForm();
+    console.log(this.TodoNoteForm.value );
+
   }
 
   public initializeForm(): FormGroup {
@@ -33,13 +35,14 @@ export class FormTodoNoteComponent implements OnInit{
       });
     } else {
       return new FormGroup({
-        elementType: new FormControl('todo'),
+        elementType: new FormControl(''),
         elementTitle: new FormControl('')
       });
     }
   }
 
   public sublite(): void {
+    console.log(this.TodoNoteForm.value );
     if(this.updateTodoNote){
       this.todoNoteServicie.updateTodoNote(this.indexOfTodoNote, {
         title: this.TodoNoteForm.get('elementTitle')?.value,
