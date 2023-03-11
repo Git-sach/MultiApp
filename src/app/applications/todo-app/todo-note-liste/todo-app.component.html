@@ -16,14 +16,14 @@
         </svg>
       </div>
       <div class="header-bottom">
-        <input type="text" placeholder="Search Task">
+        <input type="text" placeholder="Search Task" [(ngModel)]="searchValue">
       </div>
     </div>
     <ul class="todoAccueilListe">
       <li
       (contextmenu)="openRightClickTools($event, index)"
       [routerLink]="['/todoapp', TodoNote.type, index]"
-      *ngFor="let TodoNote of todoNoteListe, let index = index">
+      *ngFor="let TodoNote of todoNoteListe | search:searchValue, let index = index">
         <p class="AccueilListeDate">{{TodoNote.date}}</p>
         <p class="AccueilListeTitle">{{TodoNote.title}}</p>
         <img [src]="imgPath(TodoNote.type)" alt="">

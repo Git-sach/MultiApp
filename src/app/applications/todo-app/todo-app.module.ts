@@ -9,7 +9,8 @@ import { TodoAppComponent } from './todo-note-liste/todo-app.component';
 import { TodoListeComponent } from './todo-note-liste/todo-liste/todo-liste.component';
 
 import { TODO_APP_ROUTES } from './todo-app.routes';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchPipe } from './shared/pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -17,12 +18,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     TodoListeComponent,
     RightClickToolsComponent,
     NoteComponent,
-    FormTodoNoteComponent
+    FormTodoNoteComponent,
+    SearchPipe
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(TODO_APP_ROUTES)
+    RouterModule.forChild(TODO_APP_ROUTES),
+    FormsModule
   ]
 })
 export class TodoAppModule { }

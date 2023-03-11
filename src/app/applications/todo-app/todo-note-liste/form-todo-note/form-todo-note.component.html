@@ -2,12 +2,14 @@
   <form (ngSubmit)="sublite()" [formGroup]="TodoNoteForm">
     <input class="inputNameTodoNote" formControlName="elementTitle" type="text" placeholder="Nouvel element">
     <div class="modalBottom">
-      <select class="select" formControlName="elementType">
-        <option value="" disabled>Type</option>
+      <select class="select" formControlName="elementType" required>
         <option value="todo">Todo</option>
         <option value="note">Note</option>
       </select>
       <button class="btnSubmitNewTodoNote">Valider</button>
+    </div>
+    <div class="modalErrors" *ngIf="!this.TodoNoteForm.valid && tryToValidate">
+      <p> * Tous les champs doivent êtres renseignés</p>
     </div>
   </form>
 </div>

@@ -30,6 +30,8 @@ export class TodoAppComponent {
   public indexOfLiRightClicTool: number = 0;
   public updateTodoNote: boolean = false;
 
+  public searchValue: string = '';
+
   constructor(private todoNoteServicie: TodoNoteService){
   };
 
@@ -46,17 +48,17 @@ export class TodoAppComponent {
     this.updateTodoNote = false;
   }
 
-  public validateAddNoteModale(inputNameTodo: HTMLInputElement):void {
+  // public validateAddNoteModale(inputNameTodo: HTMLInputElement):void {
 
-    this.todoNoteServicie.addTodoNote({
-      title: inputNameTodo.value,
-      date: new Date().toLocaleDateString(),
-      type: 'todo',
-      content: []
-    }, this.indexToAddTodoNote);
+  //   this.todoNoteServicie.addTodoNote({
+  //     title: inputNameTodo.value,
+  //     date: new Date().toLocaleDateString(),
+  //     type: 'todo',
+  //     content: []
+  //   }, this.indexToAddTodoNote);
 
-    this.modalaleAddNote = false;
-  }
+  //   this.modalaleAddNote = false;
+  // }
 
   public imgPath(type: string): string{
     if(type == 'todo'){
