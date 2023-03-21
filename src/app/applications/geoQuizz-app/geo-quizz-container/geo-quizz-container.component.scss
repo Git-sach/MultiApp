@@ -1,0 +1,23 @@
+.geoQuizzContainer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  padding-top: 40px;
+}
+
+.gameBoard {
+  background-color: rgb(153, 207, 255);
+  flex-basis: 70%;
+}
+
+.dashBoard {
+  background-color: rgb(153, 207, 255);
+  flex-basis: 30%;
+}
+
+.debug {
+  border: 1px black solid;
+}
