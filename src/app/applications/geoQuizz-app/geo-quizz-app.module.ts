@@ -7,13 +7,15 @@ import { GeoQuizzContainerComponent } from './geo-quizz-container/geo-quizz-cont
 import { GEOQUIZZ_APP_ROUTES } from './geoQuizz-app.routes';
 import { GameBoardComponent } from './geo-quizz-container/game-board/game-board.component';
 import { DashboardComponent } from './geo-quizz-container/dashboard/dashboard.component';
+import { MapComponent } from './geo-quizz-container/map/map.component';
 
 
 @NgModule({
   declarations: [
     GeoQuizzContainerComponent,
     GameBoardComponent,
-    DashboardComponent
+    DashboardComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,

@@ -1,12 +1,10 @@
 <div class="gameBoardContainer">
   <div class="mapContainer">
-    <svg  viewBox="-4.8 -51.1 14.37 9.74">
-      <g transform="rotate(-90)">
-        <polygon *ngFor="let departement of map"
-        [attr.points]="departement.svg_coordinates">
-        </polygon>
-      </g>
-    </svg>
+    <div class="hoverDepartementInfo">
+      <div class="departementNumber">33</div>
+      <div class="departementName">Bouches du Rhône</div>
+    </div>
+    <app-map></app-map>
   </div>
   <div class="inputsGame ">
     <input type="text" placeholder="Département">
