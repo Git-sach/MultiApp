@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, Subscriber, tap } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { GEO_DEP } from '../../geo-quizz-container/geoWichoutMultiPolygon';
 import { Departement } from '../interfaces/departement.interface';
 
@@ -25,6 +25,18 @@ export class GeoPolygonsService {
 
   getAllDepartements(): Observable<Departement[]>{
     return this.departements$
+  }
+
+  getDepartementsById(id: number): Observable<Departement>{
+    return this.departements$.pipe(
+      map((departements: Departement[]) => {
+        console.log(departements);
+        return departements[id]
+        //fnir cette methode avec les codes des département a la place des index du tableau
+        // + possibilitée de passer un tableau de code pour avoir un tableau de départements
+        //map mal compris ?
+      })
+    )
   }
 
   convertInPolygonCoordonates(originalCoordonates: Array<Array<number>>): string{

@@ -1,7 +1,7 @@
 <svg  viewBox="-4.8 -51.1 14.37 9.74">
   <g transform="rotate(-90)">
-    <polygon *ngFor="let departement of map"
-    [attr.points]="departement.svg_coordinates">
+    <polygon *ngFor="let findDepartement of foundDepartements"
+    [attr.points]="findDepartement.svg_coordinates">
     </polygon>
   </g>
 </svg>
