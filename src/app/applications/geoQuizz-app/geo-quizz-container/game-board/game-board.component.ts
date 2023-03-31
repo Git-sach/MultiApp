@@ -16,13 +16,9 @@ export class GameBoardComponent implements OnInit, OnDestroy{
   constructor(private geoPolygonsService: GeoPolygonsService){}
 
   ngOnInit(): void {
-    this.subsciption = this.geoPolygonsService.getAllDepartements().subscribe((map) => {
+    this.subsciption = this.geoPolygonsService.getDepartementsByIds([1, 2, 3,4, 5, 80, 62, 59]).subscribe((map) => {
       this.foundDepartements = map
     });
-
-    this.geoPolygonsService.getDepartementsById(3).subscribe((map) => {
-      this.foundDepartements = [map]
-    })
   }
 
   ngOnDestroy(): void {

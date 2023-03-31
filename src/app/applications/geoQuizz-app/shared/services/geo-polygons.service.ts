@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
+import { filter, map, Observable, tap } from 'rxjs';
 import { GEO_DEP } from '../../geo-quizz-container/geoWichoutMultiPolygon';
 import { Departement } from '../interfaces/departement.interface';
 
@@ -27,14 +27,11 @@ export class GeoPolygonsService {
     return this.departements$
   }
 
-  getDepartementsById(id: number): Observable<Departement>{
+  // Retourne un tableau de départements en fonction d'un tableau de code département
+  getDepartementsByIds(ids: number[]): Observable<Departement[]>{
     return this.departements$.pipe(
       map((departements: Departement[]) => {
-        console.log(departements);
-        return departements[id]
-        //fnir cette methode avec les codes des département a la place des index du tableau
-        // + possibilitée de passer un tableau de code pour avoir un tableau de départements
-        //map mal compris ?
+        return departements.filter((departement: Departement) => ids.includes(Number(departement.code)))
       })
     )
   }
