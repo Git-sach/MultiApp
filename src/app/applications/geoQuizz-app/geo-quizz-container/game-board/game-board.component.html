@@ -7,9 +7,11 @@
     <app-map [foundDepartements]="foundDepartements"></app-map>
   </div>
   <div class="inputsGame ">
-    <input type="text" placeholder="Département">
-    <button>| |</button>
-    <button class="surrend">Abandonner</button>
+    <form [formGroup]="inputDepartementForm">
+      <input type="text" placeholder="Département" formControlName="inputDepartements">
+      <button >| |</button>
+      <button class="surrend">Abandonner</button>
+    </form>
     <div class="chrono">09:30:345</div>
   </div>
 </div>

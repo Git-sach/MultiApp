@@ -28,6 +28,7 @@ export class GeoPolygonsService {
   }
 
   // Retourne un tableau de départements en fonction d'un tableau de code département
+  // TODO gérer le cas de la Corse
   getDepartementsByIds(ids: number[]): Observable<Departement[]>{
     return this.departements$.pipe(
       map((departements: Departement[]) => {

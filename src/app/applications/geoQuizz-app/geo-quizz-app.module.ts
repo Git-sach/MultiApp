@@ -8,6 +8,7 @@ import { GEOQUIZZ_APP_ROUTES } from './geoQuizz-app.routes';
 import { GameBoardComponent } from './geo-quizz-container/game-board/game-board.component';
 import { DashboardComponent } from './geo-quizz-container/dashboard/dashboard.component';
 import { MapComponent } from './geo-quizz-container/map/map.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { MapComponent } from './geo-quizz-container/map/map.component';
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(GEOQUIZZ_APP_ROUTES)
+    RouterModule.forChild(GEOQUIZZ_APP_ROUTES),
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class GeoQuizzAppModule { }
