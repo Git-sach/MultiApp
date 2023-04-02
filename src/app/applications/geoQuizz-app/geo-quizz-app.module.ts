@@ -9,6 +9,7 @@ import { GameBoardComponent } from './geo-quizz-container/game-board/game-board.
 import { DashboardComponent } from './geo-quizz-container/dashboard/dashboard.component';
 import { MapComponent } from './geo-quizz-container/map/map.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DepartementsListComponent } from './geo-quizz-container/dashboard/departements-list/departements-list.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     GeoQuizzContainerComponent,
     GameBoardComponent,
     DashboardComponent,
-    MapComponent
+    MapComponent,
+    DepartementsListComponent
   ],
   imports: [
     CommonModule,

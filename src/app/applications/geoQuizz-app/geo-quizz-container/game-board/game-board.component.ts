@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Departement } from '../../shared/interfaces/departement.interface';
 import { GeoPolygonsService } from '../../shared/services/geo-polygons.service';
-import { DEP_DICTIONARY } from './departementsDictionary';
+import { DEP_DICTIONARY } from '../../shared/departementsDictionary';
 
 @Component({
   selector: 'app-game-board',
