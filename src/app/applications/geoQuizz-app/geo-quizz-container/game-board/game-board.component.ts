@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, EventEmitter, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Departement } from '../../shared/interfaces/departement.interface';
@@ -12,12 +12,14 @@ import { DEP_DICTIONARY } from '../../shared/departementsDictionary';
 })
 export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
 
+  @Output() public eventFoundNumbersDepartements: EventEmitter<number[]> = new EventEmitter();
+
   public foundDepartements: Departement[] = [];
   public inputDepartementForm: FormGroup = new FormGroup({
     inputDepartements: new FormControl()
   });
 
-  private foundNumbersDepartements: number[] = [];
+  public foundNumbersDepartements: number[] = [];
   private subsciption?: Subscription;
 
   constructor(private geoPolygonsService: GeoPolygonsService){}
@@ -32,11 +34,8 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
       this.subsciption = this.geoPolygonsService.getDepartementsByIds(this.foundNumbersDepartements).subscribe((map) => {
         this.foundDepartements = map;
       });
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.subsciption?.unsubscribe;
+    };
+    this.eventFoundNumbersDepartements.emit(this.foundNumbersDepartements)
   }
 
   /** Methode qui compart l'input département avec le disconaire de départements
@@ -65,5 +64,9 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
       }
     })
     return numberDepartement;
+  }
+
+  ngOnDestroy(): void {
+    this.subsciption?.unsubscribe;
   }
 }
