@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { filter, map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { GEO_DEP } from '../../geo-quizz-container/geoWichoutMultiPolygon';
-import { Departement } from '../interfaces/departement.interface';
+import { DepartementSvg } from '../interfaces/departement.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { Departement } from '../interfaces/departement.interface';
 export class GeoPolygonsService {
 
   /** Observable avec GEO_DEP transformé en Departement */
-  public departements$: Observable<Departement[]> = new Observable<Departement[]>((Subscriber) => {
+  public departements$: Observable<DepartementSvg[]> = new Observable<DepartementSvg[]>((Subscriber) => {
     Subscriber.next(
       GEO_DEP.map((departement: any) => {
         return {
@@ -21,18 +21,19 @@ export class GeoPolygonsService {
     )
   });
 
-  constructor() { }
+  constructor() {
+  }
 
-  getAllDepartements(): Observable<Departement[]>{
+  getAllDepartements(): Observable<DepartementSvg[]>{
     return this.departements$
   }
 
   // Retourne un tableau de départements en fonction d'un tableau de code département
   // TODO gérer le cas de la Corse
-  getDepartementsByIds(ids: number[]): Observable<Departement[]>{
+  getDepartementsByIds(ids: number[]): Observable<DepartementSvg[]>{
     return this.departements$.pipe(
-      map((departements: Departement[]) => {
-        return departements.filter((departement: Departement) => ids.includes(Number(departement.code)))
+      map((departements: DepartementSvg[]) => {
+        return departements.filter((departement: DepartementSvg) => ids.includes(Number(departement.code)))
       })
     )
   }

@@ -2,13 +2,14 @@
   <div class="navDashboard">
     <nav>
       <ul>
-        <li class="active">Score</li>
-        <li>Liste</li>
+        <li routerLink="score" routerLinkActive="active">Score</li>
+        <li routerLink="list" routerLinkActive="active">Liste</li>
         <li>Stats</li>
       </ul>
     </nav>
   </div>
   <div class="container">
-    <app-departements-list [foundNumbersDepartements]="foundNumbersDepartements" ></app-departements-list>
+    <router-outlet></router-outlet>
+    <!-- <app-departements-list [foundNumbersDepartements]="foundNumbersDepartements" ></app-departements-list> -->
   </div>
 </div>

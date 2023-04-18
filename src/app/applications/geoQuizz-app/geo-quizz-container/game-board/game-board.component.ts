@@ -1,9 +1,10 @@
 import { Component, DoCheck, EventEmitter, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Departement } from '../../shared/interfaces/departement.interface';
+import { DepartementSvg } from '../../shared/interfaces/departement.interface';
 import { GeoPolygonsService } from '../../shared/services/geo-polygons.service';
-import { DEP_DICTIONARY } from '../../shared/departementsDictionary';
+import { GeoNamesNumbersService } from '../../shared/services/geo-names-numbers.service';
+import { DictionaryDepartments } from '../../shared/interfaces/DictionaryDepartments.interface';
 
 @Component({
   selector: 'app-game-board',
@@ -12,30 +13,33 @@ import { DEP_DICTIONARY } from '../../shared/departementsDictionary';
 })
 export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
 
-  @Output() public eventFoundNumbersDepartements: EventEmitter<number[]> = new EventEmitter();
-
-  public foundDepartements: Departement[] = [];
+  public foundDepartements: DepartementSvg[] = [];
   public inputDepartementForm: FormGroup = new FormGroup({
     inputDepartements: new FormControl()
   });
-
-  public foundNumbersDepartements: number[] = [];
+  private foundNumbersDepartements: number[] = [];
   private subsciption?: Subscription;
+  private departementList: DictionaryDepartments = {};
 
-  constructor(private geoPolygonsService: GeoPolygonsService){}
+  constructor(
+    private geoPolygonsService: GeoPolygonsService,
+    private geoNamesNumbersService: GeoNamesNumbersService
+  ){}
 
   ngOnInit(): void {
+      this.departementList = this.geoNamesNumbersService.departementsList;
   }
 
   ngDoCheck(): void {
     let departementNumber = this.comparDepartementInput();
-    if(departementNumber != 0){
+
+    if(departementNumber != 0 && !this.foundNumbersDepartements.includes(departementNumber)){
       this.foundNumbersDepartements.push(departementNumber);
       this.subsciption = this.geoPolygonsService.getDepartementsByIds(this.foundNumbersDepartements).subscribe((map) => {
         this.foundDepartements = map;
       });
+      this.geoNamesNumbersService.departementsNumberFoundList$.next(this.foundNumbersDepartements);
     };
-    this.eventFoundNumbersDepartements.emit(this.foundNumbersDepartements)
   }
 
   /** Methode qui compart l'input département avec le disconaire de départements
@@ -46,23 +50,18 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
    */
   public comparDepartementInput(): number {
     let inputDepartementValue = this.inputDepartementForm.get('inputDepartements')?.value?.toUpperCase();
-    let nameMatch = false;
-    let numberDepartement = 0
-    // every a le même comportement de forEche mise a part que l'ont peut 'break' en renournant false
-    DEP_DICTIONARY.every((departement) => {
-      departement.name.forEach((name) => {
-        if(inputDepartementValue === name.toUpperCase()){
-          nameMatch = true;
+    let numberDepartement = 0;
+    for (const key in this.departementList) {
+      // every a le même comportement de forEche mise a part que l'ont peut 'break' en renournant false
+      this.departementList[key].every((departementName: string) => {
+        if(inputDepartementValue === departementName.toUpperCase()){
+          numberDepartement = +key;
+          this.inputDepartementForm.reset();
+          return false;
         }
+        return true
       })
-      if(nameMatch){
-        numberDepartement = departement.number;
-        this.inputDepartementForm.reset();
-        return false;
-      } else {
-        return true;
-      }
-    })
+    }
     return numberDepartement;
   }
 

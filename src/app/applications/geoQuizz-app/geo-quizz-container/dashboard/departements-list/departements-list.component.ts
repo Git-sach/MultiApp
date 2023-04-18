@@ -1,26 +1,29 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import { DEP_DICTIONARY } from '../../../shared/departementsDictionary';
-import { DicoDep } from '../../../shared/interfaces/dicoDep.interface';
+import { Component, DoCheck, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Departement } from '../../../shared/interfaces/departement.interface';
+import { DictionaryDepartments } from '../../../shared/interfaces/DictionaryDepartments.interface';
+import { GeoNamesNumbersService } from '../../../shared/services/geo-names-numbers.service';
 
 @Component({
   selector: 'app-departements-list',
   templateUrl: './departements-list.component.html',
   styleUrls: ['./departements-list.component.scss']
 })
-export class DepartementsListComponent implements DoCheck{
+export class DepartementsListComponent implements OnInit, OnDestroy{
 
-  @Input() public foundNumbersDepartements: number[] = [];
-  public departementsList: DicoDep[] = []
+  public departementsList: Departement[] = [];
+  private subsciption?: Subscription;
 
-  ngDoCheck(): void {
-    this.getFoundDepartementList();
-  }
+  constructor( private geoNamesNumbersService: GeoNamesNumbersService){}
 
-  public getFoundDepartementList(): void{
-    const allDepartements = DEP_DICTIONARY;
-    this.departementsList = allDepartements.filter((departement) => {
-      return this.foundNumbersDepartements.includes(departement.number)
+  ngOnInit(): void {
+    this.subsciption = this.geoNamesNumbersService.getFoundDepartementList()
+    .subscribe((foundDepartementList) => {
+      this.departementsList = foundDepartementList
     });
-  }
+   }
 
+   ngOnDestroy(): void {
+    this.subsciption?.unsubscribe();
+   }
 }

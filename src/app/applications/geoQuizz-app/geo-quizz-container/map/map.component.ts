@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Departement } from '../../shared/interfaces/departement.interface';
+import { DepartementSvg } from '../../shared/interfaces/departement.interface';
 
 @Component({
   selector: 'app-map',
@@ -8,16 +8,8 @@ import { Departement } from '../../shared/interfaces/departement.interface';
 })
 export class MapComponent implements OnInit{
 
-  @Input() public foundDepartements: Departement[] = [];
+  @Input() public foundDepartements: DepartementSvg[] = [];
 
-  // public map: Departement[] = [];
-
-  // constructor(private geoPolygonsService: GeoPolygonsService){}
-
-  // A mettre dans un service et dans un component
   ngOnInit(): void {
-    // this.geoPolygonsService.getAllDepartements().subscribe((map) => {
-    //   this.map = map
-    // });
   }
 }

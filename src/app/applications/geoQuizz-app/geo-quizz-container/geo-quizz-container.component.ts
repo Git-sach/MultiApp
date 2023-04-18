@@ -6,9 +6,4 @@ import { Component, DoCheck } from '@angular/core';
   styleUrls: ['./geo-quizz-container.component.scss']
 })
 export class GeoQuizzContainerComponent {
-  public foundNumbersDepartements: number[] = [];
-
-  getFoundNumbersDepartements(foundNumbersDepartements: number[]){
-    this.foundNumbersDepartements = foundNumbersDepartements
-  }
 }

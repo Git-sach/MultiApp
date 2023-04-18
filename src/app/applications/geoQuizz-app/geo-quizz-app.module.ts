@@ -10,6 +10,9 @@ import { DashboardComponent } from './geo-quizz-container/dashboard/dashboard.co
 import { MapComponent } from './geo-quizz-container/map/map.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DepartementsListComponent } from './geo-quizz-container/dashboard/departements-list/departements-list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { GeoPolygonsService } from './shared/services/geo-polygons.service';
+import { ScoreComponent } from './geo-quizz-container/dashboard/score/score.component';
 
 
 @NgModule({
@@ -18,13 +21,16 @@ import { DepartementsListComponent } from './geo-quizz-container/dashboard/depar
     GameBoardComponent,
     DashboardComponent,
     MapComponent,
-    DepartementsListComponent
+    DepartementsListComponent,
+    ScoreComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(GEOQUIZZ_APP_ROUTES),
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers:[GeoPolygonsService]
 })
 export class GeoQuizzAppModule { }
