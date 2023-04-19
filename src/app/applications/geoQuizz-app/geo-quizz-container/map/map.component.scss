@@ -6,6 +6,10 @@ svg {
   polygon {
     fill:#ffffff;
     stroke:rgb(41, 41, 41);
-    stroke-width:0.03
+    stroke-width:0.01;
+  }
+  polygon:hover {
+    fill:#a7c886ed;
+    transition: 400ms;
   }
 }

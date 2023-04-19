@@ -1,10 +1,10 @@
 <div class="gameBoardContainer">
   <div class="mapContainer">
-    <div class="hoverDepartementInfo">
-      <div class="departementNumber">33</div>
-      <div class="departementName">Bouches du Rhône</div>
+    <div class="hoverDepartementInfo" *ngIf="codeDepartmentHover !== 0 ">
+      <div class="departementNumber">{{codeDepartmentHover}}</div>
+      <div class="departementName">{{nameDepartmentHover}}</div>
     </div>
-    <app-map [foundDepartements]="foundDepartements"></app-map>
+    <app-map (eventHoverDepartment)="HoverDepartment($event)" [foundDepartements]="foundDepartements"></app-map>
   </div>
   <div class="inputsGame ">
     <form [formGroup]="inputDepartementForm">

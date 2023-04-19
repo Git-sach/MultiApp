@@ -1,7 +1,7 @@
 import { Component, DoCheck, EventEmitter, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DepartementSvg } from '../../shared/interfaces/departement.interface';
+import { Departement, DepartementSvg } from '../../shared/interfaces/departement.interface';
 import { GeoPolygonsService } from '../../shared/services/geo-polygons.service';
 import { GeoNamesNumbersService } from '../../shared/services/geo-names-numbers.service';
 import { DictionaryDepartments } from '../../shared/interfaces/DictionaryDepartments.interface';
@@ -17,6 +17,9 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
   public inputDepartementForm: FormGroup = new FormGroup({
     inputDepartements: new FormControl()
   });
+  public codeDepartmentHover: number = 0;
+  public nameDepartmentHover: string = '';
+
   private foundNumbersDepartements: number[] = [];
   private subsciption?: Subscription;
   private departementList: DictionaryDepartments = {};
@@ -27,7 +30,12 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
   ){}
 
   ngOnInit(): void {
-      this.departementList = this.geoNamesNumbersService.departementsList;
+    this.departementList = this.geoNamesNumbersService.departementsList;
+
+    // debug
+    this.subsciption = this.geoPolygonsService.getAllDepartements().subscribe((map) => {
+      this.foundDepartements = map;
+    });
   }
 
   ngDoCheck(): void {
@@ -63,6 +71,12 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
       })
     }
     return numberDepartement;
+  }
+
+  public HoverDepartment(event: Departement){
+    console.log(event);
+    this.codeDepartmentHover = event.code;
+    this.nameDepartmentHover = event.name;
   }
 
   ngOnDestroy(): void {
