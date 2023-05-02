@@ -1,4 +1,11 @@
 <div class="geoQuizzContainer">
-  <app-game-board class="gameBoard"></app-game-board>
+  <app-game-board
+    *ngIf="gameIsInProgress else elseBlock"
+    class="gameBoard"
+    (eventGameState)="stopGameState()">
+  </app-game-board>
+  <ng-template #elseBlock>
+    <app-start-game (eventGameState)="startGameState()" class="gameBoard"></app-start-game>
+  </ng-template>
   <app-dashboard class="dashBoard"></app-dashboard>
 </div>

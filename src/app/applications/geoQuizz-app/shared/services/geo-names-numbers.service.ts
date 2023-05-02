@@ -19,8 +19,6 @@ export class GeoNamesNumbersService {
 
   public getFoundDepartementList(): BehaviorSubject<Departement[]>{
     this.departementsNumberFoundList$.subscribe((numbersFound) => {
-      console.log(numbersFound);
-
       let departementsFoundList: Departement[] = [];
       numbersFound.forEach((number) => {
         departementsFoundList.push({

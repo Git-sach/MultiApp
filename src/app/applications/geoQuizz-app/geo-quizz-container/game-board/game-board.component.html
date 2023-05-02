@@ -4,14 +4,19 @@
       <div class="departementNumber">{{codeDepartmentHover}}</div>
       <div class="departementName">{{nameDepartmentHover}}</div>
     </div>
-    <app-map (eventHoverDepartment)="HoverDepartment($event)" [foundDepartements]="foundDepartements"></app-map>
+    <app-map
+      polygonClass="polygonInGame"
+      (eventHoverDepartment)="HoverDepartment($event)"
+      [foundDepartements]="foundDepartements">
+    </app-map>
   </div>
   <div class="inputsGame ">
     <form [formGroup]="inputDepartementForm">
       <input type="text" placeholder="Département" formControlName="inputDepartements">
       <button >| |</button>
-      <button class="surrend">Abandonner</button>
+      <button class="surrend" (click)="stopGame()">Abandonner</button>
     </form>
-    <div class="chrono">09:30:345</div>
+    <!-- <div class="chrono">{{timerShow}}</div> -->
+    <div class="chrono">{{timeLeaving | date:'mm:ss:SSS'}}</div>
   </div>
 </div>

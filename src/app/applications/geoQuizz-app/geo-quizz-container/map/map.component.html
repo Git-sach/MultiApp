@@ -1,6 +1,7 @@
 <svg  viewBox="-4.8 -51.1 14.37 9.74">
   <g transform="rotate(-90)">
     <polygon
+    [ngClass]="polygonClass"
     (mouseenter)="hoverDepartment(findDepartement)"
     (mouseleave)="leaveDepartment()"
     *ngFor="let findDepartement of foundDepartements"

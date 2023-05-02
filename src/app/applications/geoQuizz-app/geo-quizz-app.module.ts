@@ -13,6 +13,7 @@ import { DepartementsListComponent } from './geo-quizz-container/dashboard/depar
 import { HttpClientModule } from '@angular/common/http';
 import { GeoPolygonsService } from './shared/services/geo-polygons.service';
 import { ScoreComponent } from './geo-quizz-container/dashboard/score/score.component';
+import { StartGameComponent } from './geo-quizz-container/start-game/start-game.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ScoreComponent } from './geo-quizz-container/dashboard/score/score.comp
     DashboardComponent,
     MapComponent,
     DepartementsListComponent,
-    ScoreComponent
+    ScoreComponent,
+    StartGameComponent
   ],
   imports: [
     CommonModule,

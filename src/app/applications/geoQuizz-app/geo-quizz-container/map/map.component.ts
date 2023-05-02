@@ -9,7 +9,9 @@ import { Departement, DepartementSvg } from '../../shared/interfaces/departement
 export class MapComponent implements OnInit{
 
   @Input() public foundDepartements: DepartementSvg[] = [];
+  @Input() public polygonClass: "polygonInGame" | "polygonStart" | undefined;
   @Output() public eventHoverDepartment: EventEmitter<Departement> = new EventEmitter();
+
 
   ngOnInit(): void {
   }

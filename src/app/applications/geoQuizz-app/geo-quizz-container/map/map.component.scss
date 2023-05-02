@@ -3,13 +3,19 @@ svg {
   height: 100%;
   object-fit: contain;
   background-color: #fff;
-  polygon {
+  .polygonInGame{
     fill:#ffffff;
     stroke:rgb(41, 41, 41);
-    stroke-width:0.01;
+    stroke-width:0.005;
+    &:hover {
+      fill:#a7c886ed;
+      transition: 400ms;
+    }
   }
-  polygon:hover {
-    fill:#a7c886ed;
-    transition: 400ms;
+  .polygonStart{
+    fill:#ffffff;
+    stroke:rgb(41, 41, 41);
+    stroke-width:0.003;
   }
 }
+

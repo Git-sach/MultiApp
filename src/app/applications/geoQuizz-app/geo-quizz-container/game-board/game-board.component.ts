@@ -13,12 +13,19 @@ import { DictionaryDepartments } from '../../shared/interfaces/DictionaryDepartm
 })
 export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
 
+  @Output() eventGameState: EventEmitter<boolean> = new EventEmitter<boolean>;
+
   public foundDepartements: DepartementSvg[] = [];
   public inputDepartementForm: FormGroup = new FormGroup({
     inputDepartements: new FormControl()
   });
   public codeDepartmentHover: number = 0;
   public nameDepartmentHover: string = '';
+
+  private startTimer: number = Date.now();
+  private timer: number = 10 * 60 * 1000 / 100;
+  public timeLeaving: Date = new Date();
+  public timerShow: string = "10:00:00"
 
   private foundNumbersDepartements: number[] = [];
   private subsciption?: Subscription;
@@ -31,6 +38,16 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
 
   ngOnInit(): void {
     this.departementList = this.geoNamesNumbersService.departementsList;
+
+    const interval = setInterval(() => {
+      this.timeLeaving = new Date(this.timer - (Date.now() - this.startTimer));
+
+      // 101 pour rspecter le temps de rafréchissement qui est à 100
+      if (this.timeLeaving.getTime() < 101) {
+        this.timeLeaving.setMilliseconds(0);
+        clearInterval(interval);
+      }
+    }, 100)
 
     // debug
     this.subsciption = this.geoPolygonsService.getAllDepartements().subscribe((map) => {
@@ -74,9 +91,12 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
   }
 
   public HoverDepartment(event: Departement){
-    console.log(event);
     this.codeDepartmentHover = event.code;
     this.nameDepartmentHover = event.name;
+  }
+
+  public stopGame(): void {
+    this.eventGameState.emit(true);
   }
 
   ngOnDestroy(): void {
