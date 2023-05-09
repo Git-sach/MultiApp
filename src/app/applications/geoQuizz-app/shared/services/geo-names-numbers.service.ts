@@ -10,24 +10,64 @@ import { DictionaryDepartments } from '../interfaces/DictionaryDepartments.inter
 })
 export class GeoNamesNumbersService {
 
-  public departementsList: DictionaryDepartments = DEP_DICTIONARY;
+  public departementsListDico: DictionaryDepartments = DEP_DICTIONARY;
+  public departmentsList: Departement[] = []
   public departementsNumberFoundList$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
   public departementsFoundList$: BehaviorSubject<Departement[]> = new BehaviorSubject<Departement[]>([]);
+  public showNotFound$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() {
+    this.resetFoundDepatmentList();
   }
 
   public getFoundDepartementList(): BehaviorSubject<Departement[]>{
     this.departementsNumberFoundList$.subscribe((numbersFound) => {
-      let departementsFoundList: Departement[] = [];
       numbersFound.forEach((number) => {
-        departementsFoundList.push({
-          code: number,
-          name: this.departementsList[number][0]
-        });
+        this.departmentsList[number-1].found = true;
       });
-      this.departementsFoundList$.next(departementsFoundList);
+      this.departementsFoundList$.next(this.departmentsList);
     });
     return this.departementsFoundList$
-  }
-}
+  };
+
+  public getAllDepartmentList(): BehaviorSubject<Departement[]> {
+    for (let key in this.departmentsList){
+      this.departmentsList[key].found = true;
+    }
+    this.departementsFoundList$.next(this.departmentsList);
+    return this.departementsFoundList$
+  };
+
+    /** Methode qui compart l'input département avec le disconaire de départements
+   * -> retourne
+   *    -> le numero de depatement si il y a match
+   *    -> 0 sinon
+   * -> puis vide l'input
+   */
+    public comparDepartementInput(input: string): number {
+      let numberDepartement = 0;
+      for (const key in this.departementsListDico) {
+        // every a le même comportement de forEche mise a part que l'ont peut 'break' en renournant false
+        this.departementsListDico[key].every((departementName: string) => {
+          if(input === departementName.toUpperCase()){
+            numberDepartement = +key;
+            return false;
+          }
+          return true
+        })
+      }
+      return numberDepartement;
+    }
+
+    public resetFoundDepatmentList(): void {
+      this.departmentsList = []
+      for (let key in this.departementsListDico){
+        this.departmentsList.push({
+          code: +key,
+          name: this.departementsListDico[key][0],
+          found: false
+        })
+      }
+      this.departementsFoundList$.next(this.departmentsList)
+    }
+};

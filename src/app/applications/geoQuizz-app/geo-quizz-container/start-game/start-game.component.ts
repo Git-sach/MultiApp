@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 import { DepartementSvg } from '../../shared/interfaces/departement.interface';
+import { GeoNamesNumbersService } from '../../shared/services/geo-names-numbers.service';
 import { GeoPolygonsService } from '../../shared/services/geo-polygons.service';
 
 @Component({
@@ -18,7 +19,10 @@ export class StartGameComponent implements OnInit{
   private allDepartements:  DepartementSvg[] = []
   private subsciption?: Subscription;
 
-  constructor( private geoPolygonsService: GeoPolygonsService){}
+  constructor(
+    private geoPolygonsService: GeoPolygonsService,
+    private geoNamesNumbersService: GeoNamesNumbersService
+  ){}
 
   ngOnInit() {
     this.subsciption = this.geoPolygonsService.getAllDepartements().subscribe((map: DepartementSvg[]) => {
@@ -39,6 +43,8 @@ export class StartGameComponent implements OnInit{
 
   public startGame(): void {
     this.eventGameState.emit(true);
+    this.geoNamesNumbersService.resetFoundDepatmentList();
+    this.geoNamesNumbersService.showNotFound$.next(false);
   }
 
   ngOnDestroy(): void {

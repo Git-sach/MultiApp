@@ -7,7 +7,7 @@ import { Component, DoCheck } from '@angular/core';
 })
 export class GeoQuizzContainerComponent {
 
-  // convertir en un enum pour game in progress, pas démarer et recommencé
+  // convertir en un enum pour game in progress, pas démarer et recommencé(résultats)
   public gameIsInProgress: boolean = false
 
   public startGameState(): void {

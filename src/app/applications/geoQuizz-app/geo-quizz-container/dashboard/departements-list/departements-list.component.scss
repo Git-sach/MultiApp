@@ -1,25 +1,35 @@
-ul {
-  overflow: auto;
+.container {
   height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  li{
-    display: flex;
-    font-size: 0.5em;
-    div {
-      margin: 2px 4px 2px 0px;
-    }
-    .numberDepartement {
-      font-size: 0.6em;
-      height: 12px;
-      width: 12px;
-      color: white;
-      background-color: #a7c886ed;
-      border-radius: 3px;
-      text-align: center;
-      padding-top: 2px;
+  .progressiveBarContainer {
+    padding-bottom: 25px;
+  }
+  ul {
+    overflow: auto;
+    height: auto;
+    width: 100%;
+    li{
+      display: flex;
+      font-size: 1em;
+      div {
+        margin: 2px 10px 2px 0px;
+      }
+      .numberDepartement {
+        font-size: 1em;
+        height: 25px;
+        width: 25px;
+        color: white;
+        border-radius: 3px;
+        text-align: center;
+        padding-top: 2px;
+        &.found {
+          background-color: #a7c886ed;
+        }
+        &.notFound {
+          background-color: #c88686ed;
+        }
+      }
     }
   }
 }

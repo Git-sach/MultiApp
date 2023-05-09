@@ -4,5 +4,6 @@ export interface DepartementSvg extends Departement{
 
 export interface Departement {
   code: number,
-  name: string
+  name: string,
+  found?: boolean
 }

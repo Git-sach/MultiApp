@@ -1,6 +1,12 @@
-<ul>
-  <li *ngFor="let departement of departementsList">
-    <div class="numberDepartement"> {{departement.code}} </div>
-    <div> {{departement.name}} </div>
-  </li>
-</ul>
+<div class="container">
+  <app-progressive-bar [numberOfDepartements]="numberOfDepartmentsFound" class="progressiveBarContainer"></app-progressive-bar>
+  <ul>
+    <li *ngFor="let departement of departementsList">
+      <div *ngIf="departement.found || showNotFound"
+      [className]=" departement.found ? 'numberDepartement found' : 'numberDepartement notFound'"
+      > {{departement.code}}
+    </div>
+      <div *ngIf="departement.found || showNotFound"> {{departement.name}} </div>
+    </li>
+  </ul>
+</div>

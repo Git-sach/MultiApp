@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  .numericData {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .containerBar {
+    width: 100%;
+    height: 13px;
+    border: rgba(0, 0, 0, 0.1) 0.1px solid;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
+    &.notFound {
+      background-color: #c88686ed;
+    }
+    .progressBar {
+      width: 0%;
+      height: 12px;
+      background-color: #a7c886ed;
+      border-radius: 10px;
+    }
+  }
+}

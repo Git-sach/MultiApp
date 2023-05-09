@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GeoPolygonsService } from './shared/services/geo-polygons.service';
 import { ScoreComponent } from './geo-quizz-container/dashboard/score/score.component';
 import { StartGameComponent } from './geo-quizz-container/start-game/start-game.component';
+import { ProgressiveBarComponent } from './geo-quizz-container/dashboard/progressive-bar/progressive-bar.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { StartGameComponent } from './geo-quizz-container/start-game/start-game.
     MapComponent,
     DepartementsListComponent,
     ScoreComponent,
-    StartGameComponent
+    StartGameComponent,
+    ProgressiveBarComponent
   ],
   imports: [
     CommonModule,

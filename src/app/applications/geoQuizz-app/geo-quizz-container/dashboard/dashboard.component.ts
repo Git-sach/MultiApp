@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class DashboardComponent {
   @Input() public foundNumbersDepartements: number[] = [];
+  public showNotFound = false;
 }

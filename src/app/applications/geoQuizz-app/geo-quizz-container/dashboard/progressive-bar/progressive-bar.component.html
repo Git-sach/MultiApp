@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="numericData">
+    <div class="root">{{numberOfDepartements}}/95</div>
+    <div class="percentage">{{progressBarWidth}}%</div>
+  </div>
+  <div [className]=" showNotFound ? 'containerBar notFound' : 'containerBar'">
+    <div [style.width.%]="progressBarWidth" class="progressBar">
+    </div>
+  </div>
+</div>

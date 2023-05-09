@@ -18,6 +18,7 @@ export const DEP_DICTIONARY = {
   17: ['Charente-maritime'],
   18: ['Cher'],
   19: ['Corrèze'],
+  20: ['Corse (provsoir)'],
   21: ['Côte-d\'Or'],
   22: ['Côtes-d\'Armor'],
   23: ['Creuse'],
