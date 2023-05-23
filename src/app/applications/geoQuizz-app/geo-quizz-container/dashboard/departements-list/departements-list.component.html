@@ -3,9 +3,9 @@
   <ul>
     <li *ngFor="let departement of departementsList">
       <div *ngIf="departement.found || showNotFound"
-      [className]=" departement.found ? 'numberDepartement found' : 'numberDepartement notFound'"
+        [className]=" departement.found ? 'numberDepartement found' : 'numberDepartement notFound'"
       > {{departement.code}}
-    </div>
+      </div>
       <div *ngIf="departement.found || showNotFound"> {{departement.name}} </div>
     </li>
   </ul>

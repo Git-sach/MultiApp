@@ -1,16 +1,17 @@
 <div class="gameBoardContainer">
   <div class="mapContainer">
     <div class="hoverDepartementInfo" *ngIf="codeDepartmentHover !== 0 ">
-      <div class="departementNumber">{{codeDepartmentHover}}</div>
-      <div class="departementName">{{nameDepartmentHover}}</div>
+      <div [ngClass]=" departmentHoverIsFound ? 'departementNumber found' : 'departementNumber notFound'">{{codeDepartmentHover}}</div>
+      <div [ngClass]="departmentHoverIsFound ? 'departementName found' : 'departementName notFound'">{{nameDepartmentHover}}</div>
     </div>
     <app-map
+      [showNotFound]="showNotFound"
       polygonClass="polygonInGame"
       (eventHoverDepartment)="HoverDepartment($event)"
-      [foundDepartements]="foundDepartements">
+      [foundNumbersDepartements]="foundNumbersDepartements">
     </app-map>
   </div>
-  <div class="inputsGame ">
+  <div *ngIf="!showNotFound else endGame" class="inputsGame">
     <form [formGroup]="inputDepartementForm">
       <input type="text" placeholder="Département" formControlName="inputDepartements">
       <button >| |</button>
@@ -18,4 +19,15 @@
     </form>
     <div class="chrono">{{timeLeaving | date:'mm:ss:SSS'}}</div>
   </div>
+  <ng-template #endGame>
+    <div class="scoreGame">
+      <round-progress [current]="current" [max]="max"
+      [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="25" [stroke]="8"></round-progress>
+      <div class="score">
+        <p>40%</p>
+        <p>9:45min</p>
+      </div>
+      <button (click)="restartGame()">Rejouer</button>
+    </div>
+  </ng-template>
 </div>

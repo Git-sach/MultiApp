@@ -1,11 +1,13 @@
 <svg  viewBox="-4.8 -51.1 14.37 9.74">
   <g transform="rotate(-90)">
-    <polygon
-    [ngClass]="polygonClass"
-    (mouseenter)="hoverDepartment(findDepartement)"
-    (mouseleave)="leaveDepartment()"
-    *ngFor="let findDepartement of foundDepartements"
-    [attr.points]="findDepartement.svg_coordinates">
-    </polygon>
+    <g *ngFor="let department of departments">
+      <polygon
+      [ngClass]="department.found ? polygonClass + ' found' : polygonClass + ' notFound'"
+      (mouseenter)="hoverDepartment(department)"
+      (mouseleave)="leaveDepartment()"
+      *ngIf="department.found || showNotFound"
+      [attr.points]="department.svg_coordinates">
+      </polygon>
+    </g>
   </g>
 </svg>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
 import { GeoQuizzContainerComponent } from './geo-quizz-container/geo-quizz-container.component';
 
@@ -33,7 +34,8 @@ import { ProgressiveBarComponent } from './geo-quizz-container/dashboard/progres
     RouterModule.forChild(GEOQUIZZ_APP_ROUTES),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RoundProgressModule
   ],
   providers:[GeoPolygonsService]
 })

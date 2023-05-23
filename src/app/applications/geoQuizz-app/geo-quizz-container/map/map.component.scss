@@ -5,11 +5,13 @@ svg {
   background-color: #fff;
   .polygonInGame{
     fill:#ffffff;
-    stroke:rgb(41, 41, 41);
+    stroke:rgb(255, 255, 255);
     stroke-width:0.005;
-    &:hover {
-      fill:#a7c886ed;
-      transition: 400ms;
+    &.notFound{
+      fill: #c88686ed;
+    }
+    &.found{
+      fill: #a7c886ed;
     }
   }
   .polygonStart{

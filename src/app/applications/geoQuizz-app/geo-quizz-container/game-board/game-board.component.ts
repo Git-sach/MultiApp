@@ -1,36 +1,35 @@
-import { Component, DoCheck, EventEmitter, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Departement, DepartementSvg } from '../../shared/interfaces/departement.interface';
 import { GeoPolygonsService } from '../../shared/services/geo-polygons.service';
 import { GeoNamesNumbersService } from '../../shared/services/geo-names-numbers.service';
-import { DictionaryDepartments } from '../../shared/interfaces/DictionaryDepartments.interface';
 
 @Component({
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.scss']
 })
-export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
+export class GameBoardComponent implements OnInit, DoCheck{
 
-  // a revoir avec un 3eme status
-  // @Output() eventGameState: EventEmitter<boolean> = new EventEmitter<boolean>;
+  public current = 90;
+  public max = 100;
 
-  public foundDepartements: DepartementSvg[] = [];
+  // public foundDepartements: DepartementSvg[] = [];
   public inputDepartementForm: FormGroup = new FormGroup({
     inputDepartements: new FormControl()
   });
   public codeDepartmentHover: number = 0;
   public nameDepartmentHover: string = '';
+  public departmentHoverIsFound: boolean | undefined = false;
 
-  private startTimer: number = Date.now();
-  private timer: number = 10 * 60 * 1000 / 100;
   public timeLeaving: Date = new Date();
-  public timerShow: string = "10:00:00";
-  public interval: ReturnType<typeof setInterval> | undefined;
+  private startTimer: number = Date.now();
+  private timer: number = 10 * 60 * 1000;
+  private interval: ReturnType<typeof setInterval> | undefined;
 
-  private foundNumbersDepartements: number[] = [];
-  private subsciption?: Subscription;
+  public showNotFound: boolean = false;
+
+  public foundNumbersDepartements: number[] = [];
 
   constructor(
     private geoPolygonsService: GeoPolygonsService,
@@ -38,6 +37,12 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
   ){}
 
   ngOnInit(): void {
+    // Pour eviter les partages de références sur les objets imbriqués (pose problème pour le reset)
+
+    this.geoNamesNumbersService.showNotFound$.subscribe((showNotFound) => {
+      this.showNotFound = showNotFound;
+    })
+
     this.interval = setInterval(() => {
       this.timeLeaving = new Date(this.timer - (Date.now() - this.startTimer));
 
@@ -48,30 +53,17 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
         clearInterval(this.interval);
       }
     }, 100)
-
-    // debug
-    // this.subsciption = this.geoPolygonsService.getAllDepartements().subscribe((map) => {
-    //   this.foundDepartements = map;
-    // });
   }
 
   ngDoCheck(): void {
     let inputDepartementValue: string = this.inputDepartementForm.get('inputDepartements')?.value?.toUpperCase();
-    let departementNumber = this.geoNamesNumbersService.comparDepartementInput(inputDepartementValue);
-
-    if(departementNumber != 0 && !this.foundNumbersDepartements.includes(departementNumber)){
-      this.inputDepartementForm.reset();
-      this.foundNumbersDepartements.push(departementNumber);
-      this.subsciption = this.geoPolygonsService.getDepartementsByIds(this.foundNumbersDepartements).subscribe((map) => {
-        this.foundDepartements = map;
-      });
-      this.geoNamesNumbersService.departementsNumberFoundList$.next(this.foundNumbersDepartements);
-    };
+    this.pushFoundDepartment(inputDepartementValue);
   }
 
   public HoverDepartment(event: Departement){
     this.codeDepartmentHover = event.code;
     this.nameDepartmentHover = event.name;
+    this.departmentHoverIsFound = event.found;
   }
 
   public stopGame(): void {
@@ -79,7 +71,22 @@ export class GameBoardComponent implements OnInit, OnDestroy, DoCheck{
     clearInterval(this.interval);
   }
 
-  ngOnDestroy(): void {
-    this.subsciption?.unsubscribe;
+  private pushFoundDepartment(inputDepartementValue: string): void {
+    let departmentNumber = this.geoNamesNumbersService.comparDepartementInput(inputDepartementValue);
+    if(departmentNumber != 0 && !this.foundNumbersDepartements.includes(departmentNumber)){
+      this.inputDepartementForm.reset();
+      this.foundNumbersDepartements.push(departmentNumber);
+      this.foundNumbersDepartements[0] = 1;
+      this.geoNamesNumbersService.departementsNumberFoundList$.next(this.foundNumbersDepartements);
+      // console.log(this.foundNumbersDepartements);
+    };
+  }
+
+  public restartGame(): void {
+    this.foundNumbersDepartements = [];
+    this.geoNamesNumbersService.departementsNumberFoundList$.next(this.foundNumbersDepartements);
+    this.geoNamesNumbersService.resetFoundDepatmentList();
+    this.ngOnInit();
+    this.geoNamesNumbersService.showNotFound$.next(false);
   }
 }
