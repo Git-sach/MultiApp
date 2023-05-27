@@ -14,20 +14,22 @@ export class MapComponent implements OnInit, OnChanges{
   @Input() public showNotFound: boolean = false;
   @Output() public eventHoverDepartment: EventEmitter<Departement> = new EventEmitter();
 
-  public departments: DepartementSvg[];
+  public departments: DepartementSvg[] = [];
 
   constructor(private geoPolygonsService: GeoPolygonsService){
-    // Pour eviter les partages de références sur les objets imbriqués (pose problème pour le reset)
-    this.departments = JSON.parse(JSON.stringify(this.geoPolygonsService.getAllDepartements()));
+    this.initialiseDepartments();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.foundNumbersDepartements);
-    this.departments.map((department: DepartementSvg) => {
-      if(this.foundNumbersDepartements.includes(department.code) && !department.found){
-        department.found = true;
-      }
-    });
+    if (this.foundNumbersDepartements.length == 0){
+      this.initialiseDepartments();
+    } else {
+      this.departments.map((department: DepartementSvg) => {
+        if(this.foundNumbersDepartements.includes(department.code) && !department.found){
+          department.found = true;
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -43,5 +45,10 @@ export class MapComponent implements OnInit, OnChanges{
       code: 0,
       name: ''
     });
+  }
+
+  private initialiseDepartments(): void {
+    // Pour eviter les partages de références sur les objets imbriqués (pose problème pour le reset)
+    this.departments = JSON.parse(JSON.stringify(this.geoPolygonsService.getAllDepartements()));
   }
 }

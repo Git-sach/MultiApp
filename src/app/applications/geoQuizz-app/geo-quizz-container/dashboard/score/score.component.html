@@ -1,132 +1,49 @@
-<h2>Meilleurs scores</h2>
-<table>
-  <!-- <tbody>
-    <th>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
+<div class="scorContainer">
+  <h2>Meilleurs scores</h2>
+  <table>
+    <tbody>
+      <th>
+        <tr *ngFor="let historyGame of historyGames; let index = index" (click)="onClick(index)">
+          <div class="rowContainer">
+            <div class="circleProgress">
+              <round-progress [current]="historyGame.percentage" [max]="100"
+              [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
+            </div>
+            <div class="date_scor">
+              <p class="date">{{historyGame.date | date:'dd/MM/YYYY - HH:mm:ss'}}</p>
+              <p class="scor">{{historyGame.percentage}}% en {{historyGame.time | date:'mm:ss'}}min</p>
+            </div>
           </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
+        </tr>
+      </th>
+    </tbody>
+  </table>
+  <div class="detail" *ngIf="historySelected !== -1">
+    <svg (click)="closeDetail()" class="cross" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M25.708 5.70804C25.801 5.61507 25.8748 5.50469 25.9251 5.38321C25.9754 5.26173 26.0013 5.13153 26.0013 5.00004C26.0013 4.86855 25.9754 4.73835 25.9251 4.61688C25.8748 4.4954 25.801 4.38502 25.708 4.29204C25.6151 4.19907 25.5047 4.12531 25.3832 4.075C25.2617 4.02468 25.1315 3.99878 25 3.99878C24.8686 3.99878 24.7384 4.02468 24.6169 4.075C24.4954 4.12531 24.385 4.19907 24.292 4.29204L15 13.586L5.70804 4.29204C5.61507 4.19907 5.50469 4.12531 5.38321 4.075C5.26173 4.02468 5.13153 3.99878 5.00004 3.99878C4.86855 3.99878 4.73835 4.02468 4.61688 4.075C4.4954 4.12531 4.38502 4.19907 4.29204 4.29204C4.19907 4.38502 4.12531 4.4954 4.075 4.61688C4.02468 4.73835 3.99878 4.86855 3.99878 5.00004C3.99878 5.13153 4.02468 5.26173 4.075 5.38321C4.12531 5.50469 4.19907 5.61507 4.29204 5.70804L13.586 15L4.29204 24.292C4.10427 24.4798 3.99878 24.7345 3.99878 25C3.99878 25.2656 4.10427 25.5203 4.29204 25.708C4.47982 25.8958 4.73449 26.0013 5.00004 26.0013C5.26559 26.0013 5.52027 25.8958 5.70804 25.708L15 16.414L24.292 25.708C24.4798 25.8958 24.7345 26.0013 25 26.0013C25.2656 26.0013 25.5203 25.8958 25.708 25.708C25.8958 25.5203 26.0013 25.2656 26.0013 25C26.0013 24.7345 25.8958 24.4798 25.708 24.292L16.414 15L25.708 5.70804Z" fill="black"/>
+    </svg>
+    <div class="leftDetail">
+      <div class="hoverDepartment">
+        <div class="hoverDepartementInfo" *ngIf="codeDepartmentHover !== 0 ">
+          <div [ngClass]=" departmentHoverIsFound ? 'departementNumber found' : 'departementNumber notFound'">{{codeDepartmentHover}}</div>
+          <div [ngClass]=" departmentHoverIsFound ? 'departementName found' : 'departementName notFound'">{{nameDepartmentHover}}</div>
         </div>
-      </tr>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
-          </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
-        </div>
-      </tr>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
-          </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
-        </div>
-      </tr>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
-          </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
-        </div>
-      </tr>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
-          </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
-        </div>
-      </tr>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
-          </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
-        </div>
-      </tr>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
-          </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
-        </div>
-      </tr>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
-          </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
-        </div>
-      </tr>
-      <tr>
-        <div class="rowContainer">
-          <div class="circleProgress">
-            <round-progress [current]="78" [max]="100"
-            [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
-          </div>
-          <div class="date_scor">
-            <p class="date">10/04/2023 - 23:34:08</p>
-            <p class="scor">100% en 9:45min</p>
-          </div>
-        </div>
-      </tr>
-    </th>
-  </tbody> -->
-</table>
-<div class="detail">
-  <div class="leftDetail">
-    <div class="hoverDepartment">
-      <p>23 Test</p>
+      </div>
+      <div class="roundProgress">
+        <round-progress [current]="historyGames[historySelected].departmentsFound.length" [max]="100"
+          [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="45" [stroke]="12">
+        </round-progress>
+        <p class="percentage">{{historyGames[historySelected].percentage}}%</p>
+      </div>
     </div>
-    <round-progress [current]="78" [max]="100"
-      [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="40" [stroke]="10">
-    </round-progress>
-  </div>
-  <div class="mapContainer">
-    <!-- <app-map
-    [showNotFound]="true"
-    polygonClass="polygonInGame"
-    [foundDepartements]="foundDepatments">
-    </app-map> -->
+    <div class="mapContainer">
+      <app-map
+      *ngIf="enebled"
+      [showNotFound]="true"
+      polygonClass="polygonInGame"
+      (eventHoverDepartment)="HoverDepartment($event)"
+      [foundNumbersDepartements]="historyGames[historySelected].departmentsFound">
+      </app-map>
+    </div>
   </div>
 </div>

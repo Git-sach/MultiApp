@@ -8,6 +8,7 @@ export const GEOQUIZZ_APP_ROUTES: Routes = [
   children: [
     {path: 'score', component: ScoreComponent},
     {path: 'list', component: DepartementsListComponent},
-    {path: 'stats', component: DepartementsListComponent}
+    {path: 'stats', component: DepartementsListComponent},
+    { path: '**', redirectTo: 'score'}
   ]}
 ]

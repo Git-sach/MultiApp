@@ -18,6 +18,12 @@
         text-align: center;
         border-right: solid 0.1px rgba(0, 0, 0, 0.2);
         position: relative;
+        svg {
+          position: absolute;
+          left: 20px;
+          height: 19px;
+          opacity: 70%;
+        }
         &:last-child {
           border-right: none;
         }

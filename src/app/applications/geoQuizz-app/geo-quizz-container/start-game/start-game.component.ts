@@ -1,8 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { DepartementSvg } from '../../shared/interfaces/departement.interface';
-import { GeoNamesNumbersService } from '../../shared/services/geo-names-numbers.service';
-import { GeoPolygonsService } from '../../shared/services/geo-polygons.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-start-game',
@@ -13,39 +10,33 @@ export class StartGameComponent implements OnInit{
 
   @Output() eventGameState: EventEmitter<boolean> = new EventEmitter<boolean>;
 
-  public foundDepartements: DepartementSvg[] = [];
-  private allDepartements:  DepartementSvg[] = [];
-  private arrayOfDepatmentsNumbers: number[] = []
+  public foundNumbersDepartements: number[] = [];
+  private departmentsNubers: number[] = [];
   private interval: ReturnType<typeof setInterval> | undefined;
 
   constructor(
-    private geoPolygonsService: GeoPolygonsService,
-    private geoNamesNumbersService: GeoNamesNumbersService
+    private router: Router
   ){
     for(let i=1; i<96; i++) {
-      this.arrayOfDepatmentsNumbers.push(i)
+      this.departmentsNubers.push(i)
     }
   }
 
   ngOnInit() {
-    this.allDepartements = [...this.geoPolygonsService.getAllDepartements()];
-
     this.interval = setInterval(() => {
-      let numbersOfDepartments = this.allDepartements.length
-      let rendom = Math.floor(Math.random()*numbersOfDepartments);
-
-      this.foundDepartements.push(this.allDepartements[rendom]);
-      this.allDepartements.splice(rendom, 1);
-      if(numbersOfDepartments == 1) {
+      let rendom = Math.floor(Math.random()*this.departmentsNubers.length);
+      this.foundNumbersDepartements.push(this.departmentsNubers[rendom]);
+      this.foundNumbersDepartements = [...this.foundNumbersDepartements]
+      this.departmentsNubers.splice(rendom, 1);
+      if(this.departmentsNubers.length == 1) {
         clearInterval(this.interval);
       }
     }, 500);
   }
 
   public startGame(): void {
+    this.router.navigate(['geoquizz','list']);
     this.eventGameState.emit(true);
-    this.geoNamesNumbersService.resetFoundDepatmentList();
-    this.geoNamesNumbersService.showNotFound$.next(false);
   }
 
   ngOnDestroy(): void {

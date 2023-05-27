@@ -1,7 +1,10 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Departement, DepartementSvg } from '../../shared/interfaces/departement.interface';
-import { GeoPolygonsService } from '../../shared/services/geo-polygons.service';
+import { Router } from '@angular/router';
+import { map, Subscription } from 'rxjs';
+import { Departement } from '../../shared/interfaces/departement.interface';
+import { HistoryGame } from '../../shared/interfaces/historyGames.interface';
+import { GeoHistoryGamesService } from '../../shared/services/geo-history-games.service';
 import { GeoNamesNumbersService } from '../../shared/services/geo-names-numbers.service';
 
 @Component({
@@ -9,12 +12,8 @@ import { GeoNamesNumbersService } from '../../shared/services/geo-names-numbers.
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.scss']
 })
-export class GameBoardComponent implements OnInit, DoCheck{
+export class GameBoardComponent implements OnInit, DoCheck, OnDestroy{
 
-  public current = 90;
-  public max = 100;
-
-  // public foundDepartements: DepartementSvg[] = [];
   public inputDepartementForm: FormGroup = new FormGroup({
     inputDepartements: new FormControl()
   });
@@ -22,22 +21,32 @@ export class GameBoardComponent implements OnInit, DoCheck{
   public nameDepartmentHover: string = '';
   public departmentHoverIsFound: boolean | undefined = false;
 
+  public showNotFound: boolean = false;
+
+  public foundNumbersDepartements: number[] = [];
+
+  public percentage: number = 0;
+
   public timeLeaving: Date = new Date();
   private startTimer: number = Date.now();
   private timer: number = 10 * 60 * 1000;
   private interval: ReturnType<typeof setInterval> | undefined;
 
-  public showNotFound: boolean = false;
-
-  public foundNumbersDepartements: number[] = [];
+  private historyGames: HistoryGame[] = [];
+  private historyGameSubscription?: Subscription;
 
   constructor(
-    private geoPolygonsService: GeoPolygonsService,
-    private geoNamesNumbersService: GeoNamesNumbersService
+    private geoNamesNumbersService: GeoNamesNumbersService,
+    private geoHistoryGamesService: GeoHistoryGamesService,
+    private router: Router
   ){}
 
   ngOnInit(): void {
-    // Pour eviter les partages de références sur les objets imbriqués (pose problème pour le reset)
+
+    this.historyGameSubscription =  this.geoHistoryGamesService.historyGames$
+    .subscribe((historyGames) => {
+      this.historyGames = historyGames;
+    })
 
     this.geoNamesNumbersService.showNotFound$.subscribe((showNotFound) => {
       this.showNotFound = showNotFound;
@@ -67,6 +76,8 @@ export class GameBoardComponent implements OnInit, DoCheck{
   }
 
   public stopGame(): void {
+    this.percentage = Math.floor(this.foundNumbersDepartements.length/96*100)
+    this.pushScorInHistoryGame();
     this.geoNamesNumbersService.showNotFound$.next(true);
     clearInterval(this.interval);
   }
@@ -76,17 +87,35 @@ export class GameBoardComponent implements OnInit, DoCheck{
     if(departmentNumber != 0 && !this.foundNumbersDepartements.includes(departmentNumber)){
       this.inputDepartementForm.reset();
       this.foundNumbersDepartements.push(departmentNumber);
-      this.foundNumbersDepartements[0] = 1;
+      this.foundNumbersDepartements = [...this.foundNumbersDepartements]; // obligé de faire ça, sinon le changement ne se déclanche pas
       this.geoNamesNumbersService.departementsNumberFoundList$.next(this.foundNumbersDepartements);
-      // console.log(this.foundNumbersDepartements);
     };
   }
 
   public restartGame(): void {
+    this.router.navigate(['geoquizz','list']);
+    this.timeLeaving = new Date();
+    this.startTimer = Date.now();
+    this.percentage = 0;
     this.foundNumbersDepartements = [];
     this.geoNamesNumbersService.departementsNumberFoundList$.next(this.foundNumbersDepartements);
     this.geoNamesNumbersService.resetFoundDepatmentList();
     this.ngOnInit();
     this.geoNamesNumbersService.showNotFound$.next(false);
+  }
+
+  private pushScorInHistoryGame(): void {
+    let historyGames: HistoryGame[] = this.historyGames;
+    historyGames.push({
+      date: new Date,
+      time: this.timeLeaving, //temps restant a transformer en temps passé
+      percentage: this.percentage,
+      departmentsFound: this.foundNumbersDepartements
+    })
+    this.geoHistoryGamesService.historyGames$.next(historyGames);
+  }
+
+  ngOnDestroy(): void {
+    this.historyGameSubscription?.unsubscribe();
   }
 }

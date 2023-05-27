@@ -5,41 +5,6 @@
     height: 100%;
     object-fit: contain;
     position: relative;
-    .hoverDepartementInfo {
-      display: flex;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      .departementNumber {
-        height: 25px;
-        width: 25px;
-        color: white;
-        border-radius: 3px;
-        text-align: center;
-        padding-top: 3px;
-        &.found {
-          background-color: #a7c886ed;
-        }
-        &.notFound {
-          background-color: #c88686ed;
-        }
-      }
-      .departementName {
-        height: 25px;
-        width: 200px;
-        border-radius: 3px;
-        text-align: center;
-        padding-top: 3px;
-        &.found {
-          color: #70875b;
-          background-color: #a7c88629;
-        }
-        &.notFound {
-          color: #875b5b;
-          background-color: #c8868629;
-        }
-      }
-    }
 }
 
 .mapContainer {
@@ -95,4 +60,26 @@
 
 .scoreGame {
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-right: 15%;
+  .scores {
+    display: flex;
+    .roundProgress {
+      margin-right: 20px;
+    }
+    .score {
+      font-size: 20px;
+      margin-right: 20px;
+    }
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    height: 30px;
+    width: 100px;
+    background-color: #3fbd52;
+    border-radius: 3px;
+  }
 }

@@ -1,63 +1,107 @@
-h2 {
-  font-size: 16px;
-  font-weight: 200;
-  margin-bottom: 5px;
-}
-table {
-  width: 100%;
+.scorContainer {
+  height: 100%;
   display: flex;
-  height: 60%;
-  overflow-y: auto;
-  tbody {
+  flex-direction: column;
+  h2 {
+    font-size: 16px;
+    font-weight: 200;
+    margin-bottom: 5px;
+  }
+  table {
     width: 100%;
-    th {
-      display: block;
+    display: flex;
+    height: 100%;
+    overflow-y: auto;
+    tbody {
       width: 100%;
-      tr {
-        border-bottom: rgba(0, 0, 0, 0.1) 0.3px solid;
-        width: 100%;
+      th {
         display: block;
-        padding: 10px 0px;
-        &:hover {
-          background-color: hsla(86, 21%, 94%, 0.3);
-          cursor: pointer;
-        }
-        .rowContainer {
+        width: 100%;
+        tr {
+          border-bottom: rgba(0, 0, 0, 0.1) 0.3px solid;
           width: 100%;
-          display: flex;
-          padding-left: 10px;
-          .date_scor {
+          display: block;
+          padding: 10px 0px;
+          &:hover {
+            background-color: hsla(86, 21%, 94%, 0.3);
+            cursor: pointer;
+          }
+          .rowContainer {
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
+            width: 100%;
+            display: flex;
             padding-left: 10px;
-            text-align: start;
-            font-size: 16px;
-            font-weight: 100;
-            .date {
-              font-size: 9px;
-              opacity: 80%;
+            .date_scor {
+              padding-left: 10px;
+              text-align: start;
+              font-size: 16px;
+              font-weight: 100;
+              .date {
+                font-size: 9px;
+                opacity: 80%;
+              }
             }
           }
         }
       }
     }
   }
-}
 
-.detail {
-  width: 100%;
-  height: 35%;
-  display: flex;
-  padding: 10px 0;
-  .leftDetail {
-    width: 40%;
+  .detail {
+    // filter: blur(8px);
+    width: 100%;
+    height: 35%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    .hoverDepartment {
+    padding: 10px 0;
+    position: relative;
+    .cross {
+      position: absolute;
+      top: 10px;
+      right: 0px;
+      height: 15px;
+      opacity: 50%;
+      cursor: pointer;
     }
-  }
-  .mapContainer {
-    width: 60%;
-    height: 100%;
+    .leftDetail {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .roundProgress {
+        width: 100%;
+        margin-bottom: 0;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.20));
+        .percentage {
+          position: absolute;
+          font-size: 24px;
+          top: 35%;
+        }
+      }
+      .hoverDepartment {
+        position: relative;
+        .hoverDepartementInfo {
+          font-size: 11px;
+          .departementNumber {
+            height: 20px;
+            width: 20px;
+            border-radius: 5px;
+            padding-top: 3px;
+          }
+          .departementName {
+            height: 20px;
+            width: 130px;
+            border-radius: 5px;
+            padding-top: 3px;
+          }
+        }
+      }
+    }
+    .mapContainer {
+      width: 60%;
+      height: 100%;
+    }
   }
 }

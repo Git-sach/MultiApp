@@ -8,7 +8,6 @@ import { PolygonDepartments } from '../interfaces/polygonDepartment.interface';
 })
 export class GeoPolygonsService {
 
-  /** Observable avec GEO_DEP transformé en Departement */
   public departementsDico: PolygonDepartments[] = GEO_DEP;
   public departements: DepartementSvg[] = [];
 

@@ -2,7 +2,7 @@
   <div class="mapContainer">
     <div class="hoverDepartementInfo" *ngIf="codeDepartmentHover !== 0 ">
       <div [ngClass]=" departmentHoverIsFound ? 'departementNumber found' : 'departementNumber notFound'">{{codeDepartmentHover}}</div>
-      <div [ngClass]="departmentHoverIsFound ? 'departementName found' : 'departementName notFound'">{{nameDepartmentHover}}</div>
+      <div [ngClass]=" departmentHoverIsFound ? 'departementName found' : 'departementName notFound'">{{nameDepartmentHover}}</div>
     </div>
     <app-map
       [showNotFound]="showNotFound"
@@ -21,13 +21,15 @@
   </div>
   <ng-template #endGame>
     <div class="scoreGame">
-      <round-progress [current]="current" [max]="max"
-      [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="25" [stroke]="8"></round-progress>
-      <div class="score">
-        <p>40%</p>
-        <p>9:45min</p>
+      <div class="scores">
+        <round-progress class="roundProgress" [current]="foundNumbersDepartements.length" [max]="100"
+        [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="25" [stroke]="8"></round-progress>
+        <div class="score">
+          <p>{{percentage}}%</p>
+          <p>9:45min</p>
+        </div>
       </div>
-      <button (click)="restartGame()">Rejouer</button>
+      <button (click)="restartGame()">RETRY</button>
     </div>
   </ng-template>
 </div>
