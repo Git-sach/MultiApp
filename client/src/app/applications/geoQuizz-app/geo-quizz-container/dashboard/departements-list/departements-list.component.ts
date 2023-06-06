@@ -1,7 +1,6 @@
-import { Component, DoCheck, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Departement } from '../../../shared/interfaces/departement.interface';
-import { DictionaryDepartments } from '../../../shared/interfaces/DictionaryDepartments.interface';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, filter, map } from 'rxjs';
+import { Departement, DepartementFoView } from '../../../shared/interfaces/departement.interface';
 import { GeoNamesNumbersService } from '../../../shared/services/geo-names-numbers.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { GeoNamesNumbersService } from '../../../shared/services/geo-names-numbe
 export class DepartementsListComponent implements OnInit, OnDestroy{
 
   public showNotFound = true;
-  public departementsList: Departement[] = [];
+  public departementsList: DepartementFoView[] = [];
   public numberOfDepartmentsFound: number = 0;
   private subsciption?: Subscription;
 
@@ -23,7 +22,26 @@ export class DepartementsListComponent implements OnInit, OnDestroy{
     this.geoNamesNumbersService.showNotFound$.subscribe((showNotFound) => {
       this.showNotFound = showNotFound;
     });
-    this.subsciption = this.geoNamesNumbersService.getFoundDepartementList()
+    this.subsciption = this.geoNamesNumbersService.getFoundDepartementList().pipe(
+      // pipe pour transformer les nombre 20 et 96 de la corse, en 2A et 2B
+      map((foundDepartment: DepartementFoView[]) => {
+        return foundDepartment.map((foundDepartment: DepartementFoView) => {
+          if (foundDepartment.code === 96) {
+            return {
+              code: '2A',
+              name: foundDepartment.name,
+              found: foundDepartment.found}
+          }
+          if (foundDepartment.code === 20) {
+            return {
+              code: '2B',
+              name: foundDepartment.name,
+              found: foundDepartment.found}
+          }
+          return foundDepartment
+        })
+      })
+    )
     .subscribe((foundDepartementList) => {
       this.departementsList = foundDepartementList
       this.numberOfDepartmentsFound = 0;

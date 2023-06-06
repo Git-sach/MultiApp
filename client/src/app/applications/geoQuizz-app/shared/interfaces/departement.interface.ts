@@ -7,3 +7,10 @@ export interface Departement {
   name: string,
   found?: boolean
 }
+
+// même interface mais avec string possible pour la corse
+export interface DepartementFoView {
+  code: number | string,
+  name: string,
+  found?: boolean
+}

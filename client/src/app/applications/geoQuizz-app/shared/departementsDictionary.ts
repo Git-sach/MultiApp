@@ -18,7 +18,7 @@ export const DEP_DICTIONARY = {
   17: ['Charente-maritime'],
   18: ['Cher'],
   19: ['Corrèze'],
-  20: ['Corse (provsoir)'],
+  20: ['Haute Corse'],
   21: ['Côte-d\'Or'],
   22: ['Côtes-d\'Armor'],
   23: ['Creuse'],
@@ -93,5 +93,6 @@ export const DEP_DICTIONARY = {
   92: ['Hauts-de-seine'],
   93: ['Seine-Saint-Denis'],
   94: ['Val-de-marne'],
-  95: ['Val-d\'oise']
+  95: ['Val-d\'oise'],
+  96: ['Corse du Sud']
 }

@@ -61016,7 +61016,7 @@ export const GEO_DEP = [
                   ]
       },
       "properties": {
-          "code": "2A",
+          "code": "96",
           "nom": "Corse-du-Sud"
       }
   },
@@ -93683,7 +93683,7 @@ export const GEO_DEP = [
 
       },
       "properties": {
-          "code": "2B",
+          "code": "20",
           "nom": "Haute-Corse"
       }
   },

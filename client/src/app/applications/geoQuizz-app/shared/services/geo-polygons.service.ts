@@ -35,6 +35,7 @@ export class GeoPolygonsService {
           name: departement.properties.nom,
           found: false
       })
+      // Corse -> 48 - 73
     })
   }
 }

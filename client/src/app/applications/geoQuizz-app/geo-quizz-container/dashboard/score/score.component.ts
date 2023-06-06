@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Subscription } from 'rxjs';
-import { Departement } from '../../../shared/interfaces/departement.interface';
+import { Departement, DepartementFoView } from '../../../shared/interfaces/departement.interface';
 import { HistoryGame } from '../../../shared/interfaces/historyGames.interface';
 import { GeoHistoryGamesService } from '../../../shared/services/geo-history-games.service';
 
@@ -13,7 +13,7 @@ export class ScoreComponent implements OnInit, OnDestroy{
 
   public enebled: boolean = true
 
-  public codeDepartmentHover: number = 0;
+  public codeDepartmentHover: number | string = 0;
   public nameDepartmentHover: string = '';
   public departmentHoverIsFound: boolean | undefined = false;
 
@@ -41,7 +41,7 @@ export class ScoreComponent implements OnInit, OnDestroy{
     })
   }
 
-  public HoverDepartment(event: Departement){
+  public HoverDepartment(event: DepartementFoView){
     this.codeDepartmentHover = event.code;
     this.nameDepartmentHover = event.name;
     this.departmentHoverIsFound = event.found;
