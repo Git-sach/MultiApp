@@ -6,7 +6,7 @@
         <tr *ngFor="let historyGame of historyGames; let index = index" (click)="onClick(index)">
           <div class="rowContainer">
             <div class="circleProgress">
-              <round-progress [current]="historyGame.percentage" [max]="100"
+              <round-progress [current]="historyGame.departmentsFound.length" [max]="96"
               [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="15" [stroke]="5"></round-progress>
             </div>
             <div class="date_scor">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="roundProgress">
-        <round-progress [current]="historyGames[historySelected].departmentsFound.length" [max]="100"
+        <round-progress [current]="historyGames[historySelected].departmentsFound.length" [max]="96"
           [color]="'#a7c886ed'" [background]="'#c88686ed'" [radius]="45" [stroke]="12">
         </round-progress>
         <p class="percentage">{{historyGames[historySelected].percentage}}%</p>

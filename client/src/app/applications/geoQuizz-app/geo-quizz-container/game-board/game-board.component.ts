@@ -76,7 +76,7 @@ export class GameBoardComponent implements OnInit, DoCheck, OnDestroy{
   }
 
   public stopGame(): void {
-    this.percentage = Math.floor(this.foundNumbersDepartements.length/96*100)
+    this.percentage = Math.ceil(this.foundNumbersDepartements.length-1/96*100)
     this.pushScorInHistoryGame();
     this.geoNamesNumbersService.showNotFound$.next(true);
     clearInterval(this.interval);
